@@ -1,0 +1,18 @@
+title: Site
+pages: true
+  template: info
+files: true
+fields:
+  title:
+    label: Title
+    type:  text
+  og_description:
+    label: Search Engine Description
+    type: textarea
+    buttons: false
+  og_image:
+    label: Meta & Opengraph Image
+    type: selector
+    mode: single
+    types:
+      - image

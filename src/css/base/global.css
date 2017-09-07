@@ -1,0 +1,210 @@
+html, body, #root {
+	max-height: 100%;
+}
+
+main {
+	position: relative;
+	width: calc(100% - $nav-width);
+	left: $nav-width;
+}
+
+.scroll__outerContainer {
+	height: 100vh;
+	overflow: hidden;
+}
+
+.scroll__outerContainer,
+.scroll__container {
+	height: 100%;
+}
+
+.scroll__container {
+	overflow: scroll;
+}
+
+.position-relative {
+	position: relative;
+}
+
+.title {
+	font-weight: 700;
+	margin-bottom: 1rem;
+	margin-left: -2rem;
+}
+
+.column {
+	max-width: $column;
+}
+
+.column--medium {
+	max-width: $column-medium;
+}
+
+
+.column--wide {
+	max-width: $column-wide;
+}
+
+.column--xl {
+	max-width: $column-xl;
+}
+
+.column--center {
+	margin: 0 auto;
+}
+
+article {
+	a {
+		color: $red;
+	}
+}
+
+.thumbnail figure {
+	@mixin abs-full-size;
+
+	.loading-placeholder {
+		height: 100%;
+	}
+}
+
+figure {
+	position: relative;
+
+	img,
+	.loading-placeholder {
+		width: 100%;
+		max-height: calc(100vh - 4rem);
+		object-fit: contain;
+		object-position: 0 0;
+	}
+
+	.canvas-placeholder {
+		@mixin invisible;
+		position: absolute;
+	}
+
+	.fullImage {
+		position: absolute;
+		top: 0;
+		z-index: 2;
+		opacity: 0;
+		transition: 0.3s;
+	}
+
+	.loading-placeholder {
+		opacity: 1;
+		z-index: 0;
+		position: relative;
+		max-width: 100%;
+	}
+
+	.loading-placeholder--bare {
+		background: $grey0;
+		width: 100%;
+	}
+
+	&.placeholderLoaded {
+		.fullImage {
+			display: block;
+		}
+	}
+
+	&.loaded .fullImage {
+		opacity: 1;
+		/*position: relative;*/
+	}
+
+}
+
+figcaption {
+	margin-top: .5rem;
+	position: relative;
+}
+
+figure.placeholder {
+
+	.placeholder__image {
+		width: 100%;
+		padding-bottom: 56%;
+		background: $grey1;
+	}
+
+	figcaption {
+		background: $grey1;
+		width: 15rem;
+
+		&:before {
+			content: '\00a0';
+		}
+	}
+}
+
+.loading {
+	position: absolute;
+	top: calc(50% - 1rem);
+	left: calc(50% - 3rem);
+	width: 6rem;
+	display: flex;
+	justify-content: space-around;
+
+	.lodaing__dot {
+		background: $grey1;
+		border-radius: 1rem;
+		height: 1rem;
+		width: 1rem;
+	}
+}
+
+.loading__dot {
+	animation: dot-blink .75s infinite;
+	animation-direction: alternate;
+}
+
+@keyframes dot-blink {
+	from { opacity: 0; }
+	to { opacty: 1; }
+}
+
+@for $i from 1 to 3 {
+	.loading__dot:nth-of-type($i) {
+		animation-delay: resolve($i * .2s);
+	}
+}
+
+.loading-sizer {
+	position: relative;
+}
+
+.sectionTitle {
+	font-weight: 700;
+	color: $grey3;
+	margin-bottom: 1em;
+}
+
+.frame {
+	position: relative;
+	overflow: hidden;
+
+	.frame__padding {
+		width: 100%;
+	}
+
+	iframe {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+	}
+}
+
+@media screen and (max-width: $break-medium) {
+	main {
+		position: static;
+		width: 100%;
+		margin-top: ;
+		padding: 2rem 0;
+
+		section {
+		}
+	}
+}

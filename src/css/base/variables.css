@@ -1,0 +1,16 @@
+$break-large: 900px;
+$break-medium: 820px;
+$break-small: 580px;
+
+$column: 60rem;
+$column-medium: 80rem;
+$column-wide: 90rem;
+$column-xl: 120rem;
+
+$grey0: rgba(240, 240, 240, 1);
+$grey0-0: rgba(240, 240, 240, 0);
+$grey1: rgba(220, 220, 220, 1);
+$grey1-0: rgba(220, 220, 220, 0);
+$grey2: rgba(180, 180, 180, 1);
+$grey3: rgba(145, 145, 145, 1);
+$grey4: rgba(70, 70, 70, 1);

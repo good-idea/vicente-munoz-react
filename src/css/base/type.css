@@ -1,0 +1,49 @@
+
+$din: 'DIN Next W01', Arial, 'Helvetica Neue', helvetica, sans-serif;
+$arial: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
+$h1: 3.2rem;
+$h2: 2rem;
+$h3: 1.9rem;
+$h4: 1.6rem;
+$p: 1.5rem;
+$h5: 1.3rem;
+
+body { font-family: $arial; }
+h1 { font-size: $h1; }
+h2 { font-size: $h2; }
+h3 { font-size: $h3; }
+h1, h2, h3, h4, h5 { font-family: $din; }
+h4, button, textarea, select, label { font-size: $h4; }
+p, li, input, textarea { font-size: $p; }
+h5, figcaption { font-size: $h5; }
+
+p + p { margin-top: 1em; }
+
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+figcaption {
+	font-style: italic;
+	em {
+		font-style: normal;
+	}
+}
+figcaption * { font-size: inherit; }
+
+@media screen and (max-width: $break-small) {
+	$m-h1: 2.2rem;
+	$m-h2: 1.8rem;
+	$m-h3: 1.8rem;
+	$m-h4: 1.5rem;
+	$m-p: 1.5rem;
+	$m-h5: 1.2rem;
+
+	h1 { font-size: $m-h1; }
+	h2 { font-size: $m-h2; }
+	h3 { font-size: $m-h3; }
+	h4, button, textarea, select, label { font-size: $m-h4; }
+	p, li, input, textarea { font-size: $m-p; }
+	h5, figcaption { font-size: $m-h5; }
+	figcaption * { font-size: inherit; }
+}

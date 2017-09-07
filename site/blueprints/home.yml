@@ -1,0 +1,19 @@
+title: Homepage
+pages: false
+options:
+  status: false
+files: true
+  fields:
+    caption:
+      type: text
+      label: Image Caption
+fields:
+  title:
+    label: Title
+    type:  text
+  cover_image:
+    label: Homepage Hero Image
+    type: selector
+    mode: single
+    types:
+      - image

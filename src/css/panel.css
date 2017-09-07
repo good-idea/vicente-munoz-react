@@ -1,0 +1,12 @@
+@media screen and (min-width: 60em) {
+	.input-list-item.field-grid-item-1-2 {
+		width: 25%;
+	}
+}
+
+.nav > li > [data-helper="Error"],
+.nav > li > [data-helper="Sitemap"],
+.dropzone [title="Error"],
+.dropzone [title="Sitemap"] {
+	display: none;
+}
