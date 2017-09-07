@@ -1,0 +1,31 @@
+title: Info Page
+pages: false
+files: true
+  fields:
+    caption:
+      type: markdown
+      label: Image Caption
+      tools:
+        - bold
+        - italic
+fields:
+  title:
+    label: Title
+    type:  text
+  cover_image:
+    label: Cover Image
+    type: selector
+    size: 4
+    mode: single
+    autoselect: first
+    types:
+      - image
+  text:
+    label: Text
+    type: markdown
+    tools:
+      - bold
+      - italic
+      - unorderedList
+      - orderedList
+      - link

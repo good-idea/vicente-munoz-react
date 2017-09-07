@@ -23,5 +23,5 @@ fields:
     label: Enable Index Page
     default: false
     texts:
-      - Showing projects on index page
-      - Showing projects in navigation
+      - Projects are displayed on index page
+      - Projects are displayed in navigation

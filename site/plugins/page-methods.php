@@ -58,8 +58,7 @@ function smellsLikeYaml($input) {
 
 page::$methods['getContent'] = function($page, $withChildren = false) {
 
-	$sourceContent = $page->content()->toArray();
-	$content['title'] = (string)$page->title();
+	$content = $page->content()->toArray();
 	$content['slug'] = (string)$page->uid();
 	$content['id'] = (string)$page->id();
 	$content['type'] = (string)$page->intendedTemplate();
