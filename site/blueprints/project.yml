@@ -1,0 +1,39 @@
+title: Project
+pages: false
+options:
+  status: false
+files: true
+  fields:
+    caption:
+      type: markdown
+      label: Image Caption
+      tools:
+        - bold
+        - italic
+fields:
+  title:
+    label: Project Title
+    type:  text
+    width: 3/4
+  year:
+    label: Year
+    type: number
+    width: 1/4
+  materials:
+    label: Materials / Context
+    type: markdown
+    tools:
+      - bold
+      - italic
+      - unorderedList
+      - orderedList
+      - link
+  description:
+    label: Project Description
+    type: markdown
+    tools:
+      - bold
+      - italic
+      - unorderedList
+      - orderedList
+      - link

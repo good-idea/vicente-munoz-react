@@ -56,46 +56,7 @@ function smellsLikeYaml($input) {
 	return (count($output) > 0);
 };
 
-page::$methods['flushCache'] = function($page) {
-	$initialCache = 'getInitialContent/' . $page->id();
-	kirby()->cache()->remove($initialCache);
-	$fullCache = 'getFullContent/' . $page->id();
-	kirby()->cache()->remove($fullCache);
-};
-
-page::$methods['getFullContent'] = function($page) {
-	$cacheID = 'getFullContent/' . $page->id();
-	$cacheContent = kirby()->cache()->get($cacheID);
-
-	if ($cacheContent) {
-		return $cacheContent;
-	}
-
-	$sourceContent = $page->content()->toArray();
-	$content = $page->getInitialContent();
-	foreach ($sourceContent as $key => $value) {
-		$sourceContent[$key] = makeBoolIfSmellsLikeBool($value);
-		if (smellsLikeYaml($value)) {
-			$sourceContent[$key] = yaml($value);
-		}
-	}
-
-	$content['images'] = $page->getAllImageURLs();
-	$content['text'] = (string)$page->text();
-	$content['fullContent'] = true;
-	kirby()->cache()->set($cacheID, $content);
-
-	return $content;
-};
-
-
-page::$methods['getInitialContent'] = function($page, $withChildren = false) {
-	$cacheID = 'getInitialContent/' . $page->id();
-	$cacheContent = kirby()->cache()->get($cacheID);
-
-	if ($cacheContent) {
-		return $cacheContent;
-	}
+page::$methods['getContent'] = function($page, $withChildren = false) {
 
 	$sourceContent = $page->content()->toArray();
 	$content['title'] = (string)$page->title();
@@ -105,22 +66,14 @@ page::$methods['getInitialContent'] = function($page, $withChildren = false) {
 	$content['sort'] = (int)$page->num();
 	$content['visible'] = (bool)$page->isVisible();
 
-	$content['excerpt'] = (strlen($page->excerpt())) ? (string)$page->excerpt() : makeExcerpt($page->text(), 1000);
-
-	if (array_key_exists('categories', $sourceContent)) {
-		if (strlen($sourceContent['categories']) === 0) {
-			$content['categories'] = ['uncategorized'];
-		} else {
-			$content['categories'] = explode(',', $sourceContent['categories']);
-		}
-	}
-
 	if ($page->cover()) {
 		$content['cover'] = buildImage($page->cover());
 	} else if ($page->images()->sortBy('sort')->count() > 0) {
 		$content['cover'] = buildImage($page->images()->sortBy('sort')->first());
 		$content['cover']->isCover = true;
 	}
+
+	$content['images'] = $page->getAllImageURLs();
 
 	if ($withChildren) {
 		$content['children'] = [];
@@ -131,11 +84,9 @@ page::$methods['getInitialContent'] = function($page, $withChildren = false) {
 				array_push($content['children'], $childContent);
 			}
 		}
+		if (gettype($withChildren) === 'integer') $withChildren -= 1;
 	}
-	if (gettype($withChildren) === 'integer') $withChildren -= 1;
 
-	unset($content['text']);
-	kirby()->cache()->set($cacheID, $content);
 	return $content;
 };
 

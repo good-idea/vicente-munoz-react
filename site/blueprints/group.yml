@@ -1,0 +1,27 @@
+title: Project Group
+pages: true
+  template: project
+files: false
+fields:
+  title:
+    label: Title
+    type:  text
+  protected:
+    type: switch
+    label: Password Protected
+    default: false
+    texts:
+      - Page is protected
+      - Page is public
+    width: 1/2
+  password:
+    type: text
+    label: Password
+    width: 1/2
+  displayindex:
+    type: switch
+    label: Enable Index Page
+    default: false
+    texts:
+      - Showing projects on index page
+      - Showing projects in navigation

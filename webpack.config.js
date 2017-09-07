@@ -2,7 +2,6 @@ const path = require('path');
 
 const entries = {
 	bundle: './src/js/bundle.js',
-	rebuildCache: './src/js/rebuildCache.js',
 };
 
 const config = () => (
