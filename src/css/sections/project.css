@@ -1,0 +1,41 @@
+main.project {
+	padding: 6rem 6rem 6rem calc($nav-width + 12rem);
+	height: 100vh;
+	min-height: 70rem;
+}
+
+.project__column {
+	max-width: 30rem;
+}
+
+.project__intro,
+.project__gallery,
+.project__gallery figure {
+	display: inline-block;
+	vertical-align: top;
+}
+
+main.project,
+.project__gallery {
+	white-space: nowrap;
+}
+
+.project__gallery,
+.project__gallery figure {
+	height: 100%;
+}
+
+.project__gallery figure {
+	margin-left: 12rem;
+	width: auto;
+
+	img {
+		width: auto;
+		max-height: calc(100% - 6rem)
+	}
+}
+
+.project__intro,
+.project__gallery figcaption {
+	white-space: initial;
+}

@@ -8,6 +8,6 @@
   <?php echo meta($page); ?>
 
   <link rel="stylesheet" href="/assets/css/styles.css?v=<?= getCommitHash() ?>">
-  <script type="text/javascript" src="//fast.fonts.net/jsapi/a544bab8-d84d-49d7-bf58-0d42bdca57b0.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 </head>
 <body>

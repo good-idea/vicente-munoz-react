@@ -1,8 +1,8 @@
-const path = require('path');
+const path = require('path')
 
 const entries = {
 	bundle: './src/js/bundle.js',
-};
+}
 
 const config = () => (
 	{
@@ -23,6 +23,6 @@ const config = () => (
 			],
 		},
 	}
-);
+)
 
-module.exports = config;
+module.exports = config

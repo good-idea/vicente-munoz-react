@@ -1,4 +1,25 @@
-import tweenFunctions from 'tween-functions';
+
+
+module.exports.shuffleArray = (arr) => {
+	const array = [...arr]
+	let currentIndex = array.length
+	// let temporaryValue
+	// let randomIndex
+
+	// While there remain elements to shuffle...
+	while (currentIndex !== 0) {
+		// Pick a remaining element...
+		const randomIndex = Math.floor(Math.random() * currentIndex)
+		currentIndex -= 1
+
+		// And swap it with the current element.
+		const temporaryValue = array[currentIndex]
+		array[currentIndex] = array[randomIndex]
+		array[randomIndex] = temporaryValue
+	}
+
+	return array
+}
 
 /**
  * Cheap shallow equalitly checker

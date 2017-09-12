@@ -21,6 +21,8 @@ function buildImage($imageSource) {
 	$image->url = (string)$imageSource->url();
 	$image->meta = $imageSource->meta()->toArray();
 	$image->parentTitle = (string)$imageSource->page()->title();
+	$image->parentId = (string)$imageSource->page()->id();
+	$image->filename = (string)$imageSource->filename();
 	if (count($image->meta) === 0) $image->meta = new StdClass();
 	array_push($image->srcset, array(
 		'label' => 'original',
@@ -79,11 +81,18 @@ page::$methods['getContent'] = function($page, $withChildren = false) {
 		$children = $page->children()->visible();
 		if ($children->count() > 0) {
 			foreach ($children as $child) {
-				$childContent = $child->getInitialContent($withChildren);
+				$childContent = $child->getContent($withChildren);
 				array_push($content['children'], $childContent);
 			}
 		}
 		if (gettype($withChildren) === 'integer') $withChildren -= 1;
+	}
+
+	foreach ($content as $key => $value) {
+		$content[$key] = makeBoolIfSmellsLikeBool($value);
+		if (smellsLikeYaml($value)) {
+			$content[$key] = yaml($value);
+		}
 	}
 
 	return $content;

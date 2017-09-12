@@ -6,8 +6,20 @@ $routes = array(
     'method' => 'GET',
     'pattern' => 'api/initial',
     'action' => function() {
-      $response = new StdClass();
-      return response::json(json_encode($response));
+      $content = new StdClass();
+      try {
+        $site = kirby()->site();
+        $content->sections = [];
+        foreach($site->pages()->filterBy('intendedtemplate', 'group') as $group) {
+          consoleLog((string)$group->title());
+          $content->sections[] = $group->getContent(2);
+        }
+        $content->home = $site->pages()->find('home')->getContent();
+        return response::json(json_encode($content));
+      } catch (Exception $e) {
+        consoleLog($e->getMessage());
+        return response::json(json_encode($e->getMessage()), 400);
+      }
     }
   ),
 
