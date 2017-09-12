@@ -9,13 +9,6 @@
 	figcaption {
 		display: none;
 	}
-
-	figure {
-		img,
-		.loading-placeholder {
-			position: relative;
-		}
-	}
 }
 
 .imageGrid__item {

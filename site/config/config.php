@@ -17,7 +17,7 @@ for more information: http://getkirby.com/license
 */
 
 c::set('license', '37d474b51839a56e679d52d03b8f9d09');
-c::set('debug', true);
+c::set('debug', false);
 c::set('panel.stylesheet', '/assets/css/panel.css');
 
 /*

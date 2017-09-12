@@ -1,7 +1,5 @@
 title: Project
 pages: false
-options:
-  status: false
 files: true
   fields:
     caption:
