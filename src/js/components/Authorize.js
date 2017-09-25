@@ -25,7 +25,7 @@ class Authorize extends React.Component {
 			this.inputElement.blur()
 			newState.success = true
 			setTimeout(() => {
-				if (!this.props.displayIndex) this.props.history.push('/')
+				if (!this.props.displayindex) this.props.history.push('/')
 				this.props.authorizeSection(this.props.slug)
 			}, 1100)
 		}
@@ -55,11 +55,15 @@ class Authorize extends React.Component {
 }
 
 Authorize.propTypes = {
-	// title: PropTypes.string
+	slug: PropTypes.string.isRequired,
+	password: PropTypes.string.isRequired,
+	authorizeSection: PropTypes.func.isRequired,
+	history: PropTypes.shape().isRequired,
+	displayindex: PropTypes.boolean,
 }
 
 Authorize.defaultProps = {
-	// title: 'My Title'
+	displayindex: false,
 }
 
 export default Authorize

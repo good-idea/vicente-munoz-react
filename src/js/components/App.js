@@ -86,11 +86,17 @@ class App extends React.Component {
 					<Route
 						path="/:section/:project"
 						exact
-						render={({ match }) => {
+						render={({ match, history }) => {
 							const project = this.state.sections
 								.find(s => s.slug === match.params.section)
 								.children.find(p => p.slug === match.params.project)
-							return <Project {...project} />
+							console.log(project.protected, this.state.authorized, project.section)
+							if (project.protected === true && !this.state.authorized.includes(project.section)) {
+								conso
+								history.push(`/${project.section}`)
+								return null
+							}
+							return <Project authorized={this.state.authorized} history={history} {...project} />
 						}}
 					/>
 					<Route component={NotFound} />

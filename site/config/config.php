@@ -17,7 +17,7 @@ for more information: http://getkirby.com/license
 */
 
 c::set('license', '37d474b51839a56e679d52d03b8f9d09');
-c::set('debug', false);
+c::set('debug', true);
 c::set('panel.stylesheet', '/assets/css/panel.css');
 
 /*
@@ -63,9 +63,9 @@ kirby()->hook(['panel.page.update'], function ($page) {
 
 
 function consoleLog($input) {
-	// try {
-	// 	file_put_contents("php://stdout", var_export($input, true) . "\n");
-	// } catch (Exception $e) {
-	//
-	// }
+	try {
+		file_put_contents("php://stdout", var_export($input, true) . "\n");
+	} catch (Exception $e) {
+
+	}
 }
