@@ -6,4 +6,6 @@
 
 @import 'sections/nav';
 @import 'sections/home';
+@import 'sections/index';
 @import 'sections/project';
+@import 'sections/authorize';

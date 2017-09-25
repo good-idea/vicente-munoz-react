@@ -3,9 +3,18 @@ html, body, #root {
 }
 
 main {
-	padding-top: 12rem;
+	padding-top: 7rem;
+	padding-left: 24rem;
 }
 
+/**
+ * Forms
+ */
+
+input {
+	border: 1px solid black;
+	padding: 0.25rem 0.5rem;
+}
 
 /**
  * Responsive Image component

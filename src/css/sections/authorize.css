@@ -1,0 +1,37 @@
+main.authorize {
+	padding: 3rem;
+	min-height: 100vh;
+	@mixin flex-center;
+}
+
+
+.authorize__field {
+	position: relative;
+
+	label, input {
+		display: block;
+	}
+
+	.authorize__checkmark {
+		opacity: 0;
+		position: absolute;
+		left: calc(100% + 0.5em);
+		bottom: 0;
+		color: #6ee662;
+	}
+}
+
+.authorize__field--success {
+	opacity: 0;
+	transition: 1s;
+	transition-delay: 0.8s;
+
+	input {
+		border-color: rgba(180, 180, 180, 1);
+		color: rgba(180, 180, 180, 1);
+	}
+
+	.authorize__checkmark {
+		opacity: 1;
+	}
+}

@@ -2,18 +2,101 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, NavLink } from 'react-router-dom'
 
+import { cn } from '../utils/helpers'
+
+/**
+ * NavSection
+ */
+
+class NavSection extends React.Component {
+	constructor(props) {
+		super(props)
+		this.handleClick = this.handleClick.bind(this)
+	}
+
+	handleClick() {
+		this.props.setActiveSection(this.props.slug)
+	}
+
+	render() {
+		if (this.props.protected && !this.props.authorized) return null
+
+		const classNames = ['nav__section']
+
+		// Link to an Index page
+		if (this.props.displayindex) {
+			classNames.push('nav__section--index')
+			return (
+				<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
+					<h3>
+						<NavLink to={`/${this.props.slug}`} activeClassName={'nav__section--activeIndex'}>
+							{this.props.title}
+						</NavLink>
+					</h3>
+				</div>
+			)
+		}
+
+		classNames.push('nav_section--dropdown')
+		if (this.props.active) classNames.push('nav__section--active')
+		// Create a dropdown to link to projects
+
+		return (
+			<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
+				<h3 className="nav__sectionTitle">
+					<button onClick={this.handleClick} >{this.props.title}</button>
+				</h3>
+				<div className="nav__subnav">
+					{this.props.children.map(project => (
+						<h3 key={`nav-${this.props.slug}/${project.slug}`} className="nav__item">
+							<NavLink activeClassName="active" to={`/${this.props.slug}/${project.slug}`}>
+								{project.title}
+							</NavLink>
+						</h3>
+					))}
+				</div>
+			</div>
+		)
+
+	}
+}
+
+NavSection.propTypes = {
+	// title: PropTypes.string
+}
+
+NavSection.defaultProps = {
+	// title: 'My Title'
+}
+
+/**
+ * Navigation
+ */
 
 class Navigation extends React.Component {
 	constructor(props) {
 		super(props)
-		this.renderSection = this.renderSection.bind(this)
 		this.handleScroll = this.handleScroll.bind(this)
-
-		this.state = { visible: true }
+		this.setActiveSection = this.setActiveSection.bind(this)
+		this.state = {
+			visible: true,
+			activeSection: undefined,
+			authorized: [],
+		}
 	}
 
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll)
+	}
+
+	setActiveSection(slug) {
+		this.setState({ activeSection: slug })
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.state.activeSection !== nextProps.activeSection) {
+			this.setState({ activeSection: nextProps.activeSection })
+		}
 	}
 
 	handleScroll() {
@@ -23,44 +106,22 @@ class Navigation extends React.Component {
 		}
 	}
 
-	renderSection(section) {
-		if (section.protected && !this.props.authorized.includes(section.slug)) return null
-		if (section.displayindex) {
-			return (
-				<div key={`nav-${section.slug}`} className="nav__section">
-					<h3>
-						<NavLink to={`/${section.slug}`}>
-							{section.title}
-						</NavLink>
-					</h3>
-				</div>
-			)
-		}
-
-		return (
-			<div key={`nav-${section.slug}`} className="nav__section">
-				<h3 className="nav__sectionTitle">{section.title}</h3>
-				<div className="nav__subnav">
-					{section.children.map(project => (
-						<h3 key={`nav-${section.slug}/${project.slug}`} className="nav__item">
-							<NavLink activeClassName="active" to={`/${section.slug}/${project.slug}`}>
-								{project.title}
-							</NavLink>
-						</h3>
-					))}
-				</div>
-			</div>
-		)
-	}
-
 	render() {
 		const navClass = (this.state.visible) ? 'visible' : ''
 		return (
 			<nav className={navClass}>
-				<h1 className="nav__title">
+				<h2 className="nav__title">
 					<Link to="/">Vicente Munoz</Link>
-				</h1>
-				{this.props.sections.map(this.renderSection)}
+				</h2>
+				{this.props.sections.map(section => (
+					<NavSection
+						key={`nav-section-${section.slug}`}
+						setActiveSection={this.setActiveSection}
+						active={this.state.activeSection === section.slug}
+						authorized={this.props.authorized.includes(section.slug)}
+						{...section}
+					/>
+				))}
 			</nav>
 		)
 	}

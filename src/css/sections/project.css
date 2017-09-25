@@ -1,5 +1,5 @@
 main.project {
-	padding: 6rem 6rem 6rem calc($nav-width + 12rem);
+	padding: 6rem 6rem 6rem calc($nav-width);
 	height: 100vh;
 	min-height: 70rem;
 }
@@ -33,9 +33,14 @@ main.project,
 		width: auto;
 		max-height: calc(100% - 6rem)
 	}
+
+	&:last-of-type {
+		padding-right: 24rem;
+	}
 }
 
 .project__intro,
 .project__gallery figcaption {
 	white-space: initial;
+	text-align: right;
 }

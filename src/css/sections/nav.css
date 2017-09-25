@@ -14,8 +14,19 @@ nav.visible {
 }
 
 .nav__subnav {
+	display: none;
 	padding-left: 1.5rem;
 	max-width: $nav-width;
+}
+
+.nav__section--active {
+	.nav__subnav {
+		display: block;
+	}
+}
+
+.nav__section--activeIndex {
+	text-decoration: underline;
 }
 
 .nav__section + .nav__section {
@@ -30,6 +41,8 @@ nav.visible {
 	display: inline-block;
 	margin-right: 1em;
 	white-space: nowrap;
+	padding: 0 0.2em;
+	background: white;
 
 	a {
 		position: relative;

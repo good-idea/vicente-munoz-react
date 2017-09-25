@@ -63,5 +63,9 @@ kirby()->hook(['panel.page.update'], function ($page) {
 
 
 function consoleLog($input) {
-	file_put_contents("php://stdout", var_export($input, true) . "\n");
+	// try {
+	// 	file_put_contents("php://stdout", var_export($input, true) . "\n");
+	// } catch (Exception $e) {
+	//
+	// }
 }

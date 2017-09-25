@@ -1,7 +1,11 @@
+main.home {
+	padding-left: 0;
+}
+
 .imageGrid {
 	width: 100%;
-	max-width: 120rem;
-	padding: 6rem 6rem 6rem 12rem;
+	max-width: 160rem;
+	padding: 3rem 3rem 12rem;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -26,18 +30,23 @@
 	&.w-1 {
 		flex-basis: 80%;
 	}
+}
 
-	&:nth-of-type(3n) {
-		margin-top: -3rem;
-	}
+.gridImage__title {
+	opacity: 0;
+	font-style: italic;
+}
 
-	&:nth-of-type(3n + 1) {
-		margin-top: 1rem;
-		margin-right: -5%;
+.imageGrid__item a:hover {
+	.gridImage__title {
+		opacity: 1;
 	}
+}
 
-	&:nth-of-type(3n + 2) {
-		margin-top: 0rem;
-		margin-left: -5%;
-	}
+/**
+ * 404
+ */
+
+main.not-found {
+	font-style: italic;
 }

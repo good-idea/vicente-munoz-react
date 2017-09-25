@@ -9,12 +9,12 @@ import { shuffleArray, cn } from '../utils/helpers'
 
 const GridImage = (props) => {
 	const rand = seedrandom(`${props.url}-${props.index}`)()
-	const containerWidth = Math.floor(rand * 4) + 1
+	const containerWidth = Math.ceil((Math.floor(rand * 8) + 1) / 2)
 	const padding = [
-		Math.floor(rand * 20 * (containerWidth / 2)),
-		Math.floor(rand * 20 * (5 - containerWidth)) + 10 + (containerWidth * 2),
-		Math.floor(rand * 20 * (5 - containerWidth)) + 10,
-		Math.floor(rand * 4 * containerWidth) + 5,
+		0,
+		Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2),
+		Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2),
+		Math.floor(rand * 10 * (4 - containerWidth)) + 15,
 	].reduce((acc, current) => (
 		`${acc} ${current}%`
 	), '')
@@ -26,7 +26,7 @@ const GridImage = (props) => {
 
 	const style = { padding }
 
-	let sizes;
+	let sizes
 	switch (containerWidth) {
 	case 2:
 	case 3:
@@ -44,6 +44,7 @@ const GridImage = (props) => {
 			<div style={style} className="gridImage__inner">
 				<Link to={`/${props.parentId}`}>
 					<ResponsiveImage sizes={sizes} {...props} />
+					<h4 className="gridImage__title">{props.parentTitle}</h4>
 				</Link>
 			</div>
 		</div>
@@ -51,6 +52,7 @@ const GridImage = (props) => {
 }
 
 GridImage.propTypes = {
+	parentTitle: PropTypes.string.isRequired,
 	parentId: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	index: PropTypes.number.isRequired,
@@ -69,8 +71,9 @@ class Home extends React.Component {
 
 	render() {
 		const imageCount = 3
-
+		console.log(this.props.sections)
 		const randomImages = R.pipe(
+			R.filter(section => !section.protected),
 			R.pluck('children'),
 			R.flatten,
 			R.map(project => ({
@@ -83,6 +86,7 @@ class Home extends React.Component {
 			R.flatten,
 			shuffleArray,
 		)(this.props.sections)
+
 
 
 		return (

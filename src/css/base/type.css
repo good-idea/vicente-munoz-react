@@ -1,14 +1,14 @@
 /*$lato: 'Arimo', 'Helvetica Neue', helvetica, sans-serif;*/
 $sans: 'Istok Web', 'Helvetica Neue', helvetica, sans-serif;
 
-$h1: 2rem;
+$h1: 6rem;
 $h2: 2rem;
 $h3: 1.6rem;
 $h4: 1.6rem;
 $p: 1.5rem;
 $h5: 1.3rem;
 
-body { font-family: $sans; }
+body, input { font-family: $sans; }
 h1 { font-size: $h1; }
 h2 { font-size: $h2; }
 h3 { font-size: $h3; }
