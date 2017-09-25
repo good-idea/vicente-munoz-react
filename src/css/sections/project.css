@@ -1,11 +1,27 @@
 main.project {
 	padding: 6rem 6rem 6rem calc($nav-width);
 	height: 100vh;
-	min-height: 70rem;
 }
 
 .project__column {
-	max-width: 30rem;
+	width: 35rem;
+
+	/*p {
+		width: 30rem;
+		float: left;
+	}
+
+	p + p {
+		margin-top: 0;
+		margin-left: 2rem;
+	}*/
+	/*columns: 30rem;
+	column-fill: auto;*/
+}
+
+.project__intro,
+.project__column {
+	height: 100%;
 }
 
 .project__intro,
@@ -42,5 +58,8 @@ main.project,
 .project__intro,
 .project__gallery figcaption {
 	white-space: initial;
+}
+
+.project__gallery figcaption {
 	text-align: right;
 }

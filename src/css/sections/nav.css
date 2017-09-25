@@ -1,12 +1,15 @@
 nav {
 	display: none;
+	flex-direction: column;
+	justify-content: flex-start;
 	position: fixed;
-	padding: 2rem;
+	padding: 2rem 2rem 4rem;
 	z-index: 10;
+	min-height: 100vh;
 }
 
 nav.visible {
-	display: initial;
+	display: flex;
 }
 
 .nav__title {
@@ -20,6 +23,7 @@ nav.visible {
 }
 
 .nav__section--active {
+	margin-bottom: 1rem;
 	.nav__subnav {
 		display: block;
 	}
@@ -29,12 +33,15 @@ nav.visible {
 	text-decoration: underline;
 }
 
-.nav__section + .nav__section {
-	margin-top: 1rem;
-}
-
 .nav__sectionTitle {
 	font-weight: bold;
+}
+
+.nav__infoPages {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;;
 }
 
 .nav__item {

@@ -57,16 +57,26 @@ class NavSection extends React.Component {
 				</div>
 			</div>
 		)
-
 	}
 }
 
 NavSection.propTypes = {
-	// title: PropTypes.string
+	title: PropTypes.string.isRequired,
+	slug: PropTypes.string.isRequired,
+	setActiveSection: PropTypes.func.isRequired,
+	children: PropTypes.arrayOf(PropTypes.shape),
+	active: PropTypes.bool,
+	displayindex: PropTypes.bool,
+	authorized: PropTypes.bool,
+	protected: PropTypes.bool,
 }
 
 NavSection.defaultProps = {
-	// title: 'My Title'
+	children: [],
+	active: false,
+	displayindex: false,
+	protected: false,
+	authorized: false,
 }
 
 /**
@@ -78,9 +88,10 @@ class Navigation extends React.Component {
 		super(props)
 		this.handleScroll = this.handleScroll.bind(this)
 		this.setActiveSection = this.setActiveSection.bind(this)
+		const slugOne = props.location.pathname.split('/')[1]
 		this.state = {
 			visible: true,
-			activeSection: undefined,
+			activeSection: slugOne,
 			authorized: [],
 		}
 	}
@@ -89,14 +100,14 @@ class Navigation extends React.Component {
 		window.addEventListener('scroll', this.handleScroll)
 	}
 
-	setActiveSection(slug) {
-		this.setState({ activeSection: slug })
-	}
-
 	componentWillReceiveProps(nextProps) {
-		if (this.state.activeSection !== nextProps.activeSection) {
+		if (nextProps.activeSection && this.state.activeSection !== nextProps.activeSection) {
 			this.setState({ activeSection: nextProps.activeSection })
 		}
+	}
+
+	setActiveSection(slug) {
+		this.setState({ activeSection: slug })
 	}
 
 	handleScroll() {
@@ -122,6 +133,13 @@ class Navigation extends React.Component {
 						{...section}
 					/>
 				))}
+				<div className="nav__infoPages">
+					{this.props.infoPages.map(page => (
+						<h3 key={`infoPage-${page.id}`}>
+							<Link to={page.id}>{page.title}</Link>
+						</h3>
+					))}
+				</div>
 			</nav>
 		)
 	}
@@ -131,11 +149,16 @@ class Navigation extends React.Component {
 Navigation.propTypes = {
 	sections: PropTypes.arrayOf(PropTypes.shape),
 	authorized: PropTypes.arrayOf(PropTypes.string),
+	infoPages: PropTypes.arrayOf(PropTypes.shape),
+	activeSection: PropTypes.string,
+	location: PropTypes.shape().isRequired,
 }
 
 Navigation.defaultProps = {
+	activeSection: undefined,
 	sections: [],
 	authorized: [],
+	infoPages: [],
 }
 
 export default Navigation

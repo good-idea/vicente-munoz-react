@@ -1,6 +1,6 @@
 title: Site
 pages: true
-  templates:
+  template:
     - group
     - info
 files: true

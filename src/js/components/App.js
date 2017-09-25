@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import R from 'ramda'
 import Cookies from 'js-cookie'
 
@@ -10,7 +10,7 @@ import Project from './Project'
 import NotFound from './NotFound'
 import Index from './Index'
 import Authorize from './Authorize'
-// import InfoPage from './InfoPage'
+import InfoPage from './InfoPage'
 
 class App extends React.Component {
 	constructor(props) {
@@ -49,7 +49,7 @@ class App extends React.Component {
 		if (!this.state.ready) return null
 		return (
 			<div className="app">
-				<Navigation {...this.state} />
+				<Navigation location={this.props.location} {...this.state} />
 				<Switch>
 					<Route
 						exact
@@ -63,17 +63,22 @@ class App extends React.Component {
 						path="/:slug"
 						render={({ match, history }) => {
 							const section = this.state.sections.find(s => s.slug === match.params.slug)
-							console.log(section)
-							if (section.protected && !this.state.authorized.includes(section.slug)) {
-								return (
-									<Authorize
-										{...section}
-										history={history}
-										authorizeSection={this.authorizeSection}
-									/>
-								)
+							if (section) {
+								if (!this.state.authorized.includes(section.slug)) {
+									return (
+										<Authorize
+											{...section}
+											history={history}
+											authorizeSection={this.authorizeSection}
+										/>
+									)
+								}
+								return <Index {...section} />
 							}
-							if (section) return <Index {...section} />
+
+							const infoPage = this.state.infoPages.find(p => p.slug === match.params.slug)
+
+							if (infoPage) return <InfoPage {...infoPage} />
 
 							return <NotFound />
 						}}
@@ -96,4 +101,4 @@ class App extends React.Component {
 }
 
 
-export default App
+export default withRouter(App)

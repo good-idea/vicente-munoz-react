@@ -11,10 +11,13 @@ $routes = array(
         $site = kirby()->site();
         $content->sections = [];
         foreach($site->pages()->filterBy('intendedtemplate', 'group') as $group) {
-          consoleLog((string)$group->title());
           $content->sections[] = $group->getContent(2);
         }
         $content->home = $site->pages()->find('home')->getContent();
+				$content->infoPages = [];
+				foreach($site->pages()->filterBy('intendedtemplate', 'info') as $page) {
+					$content->infoPages[] = $page->getContent();
+				}
         return response::json(json_encode($content));
       } catch (Exception $e) {
         consoleLog($e->getMessage());
