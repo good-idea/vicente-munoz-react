@@ -9,7 +9,7 @@
     "dev:js": "webpack --progress --colors",
     "dev:css": "./node_modules/.bin/postcss src/css/*.css --dir assets/css/ -c postcss.config.js -w",
     "build": "npm-run-all build:js build:css",
-    "build:js": "webpack -p --progress --colors",
+    "build:js": "webpack -p --config webpack.config.production.js --progress --colors",
     "build:css": "./node_modules/.bin/postcss src/css/*.css --dir assets/css/ -c postcss.config.js",
     "livereload": "livereload 'assets'",
     "serve": "webpack-dev-server",
