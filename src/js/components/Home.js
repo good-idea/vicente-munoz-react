@@ -71,7 +71,6 @@ class Home extends React.Component {
 
 	render() {
 		const imageCount = 3
-		console.log(this.props.sections)
 		const randomImages = R.pipe(
 			R.filter(section => !section.protected),
 			R.pluck('children'),
@@ -87,10 +86,18 @@ class Home extends React.Component {
 			shuffleArray,
 		)(this.props.sections)
 
+		const button = (this.props.showSplash)
+			? (
+				<button className="home__splash" onClick={this.props.disableSplash}>
+					<img src={this.props.home.warpImage.url} alt="Vicente Muñoz" />
+				</button>
+			) : null
 
+		const className = (this.props.showSplash) ? 'home withSplash' : 'home'
 
 		return (
-			<main className="home">
+			<main className={className}>
+				{button}
 				<div className="imageGrid">
 					{randomImages.map((image, index) => (
 						<GridImage key={`image-${image.parentId}-${image.filename}`} index={index} {...image} />

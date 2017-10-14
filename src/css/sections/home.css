@@ -2,6 +2,26 @@ main.home {
 	padding-left: 0;
 }
 
+.home__splash {
+	@mixin abs-full-size;
+	@mixin flex-center;
+	width: 100%;
+	position: fixed;
+	z-index: 1000;
+	display: none;
+}
+
+.home.withSplash {
+	.home__splash {
+		display: flex;
+	}
+
+	.imageGrid {
+		display: none;
+	}
+}
+
+
 .imageGrid {
 	width: 100%;
 	max-width: 160rem;

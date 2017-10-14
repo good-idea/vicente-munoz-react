@@ -17,7 +17,6 @@ fields:
     type: selector
     size: 4
     mode: single
-    autoselect: first
     types:
       - image
   text:

@@ -12,8 +12,14 @@ fields:
     label: Title
     type:  text
   cover_image:
-    label: Homepage Hero Image
+    label: Homepage Landing Image
     type: selector
     mode: single
     types:
       - image
+  signature:
+    label: Signature Image
+    type: selector
+    mode: single
+    filter: /\.(png)/i
+    help: Must be .png

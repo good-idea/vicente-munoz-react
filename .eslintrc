@@ -1,0 +1,40 @@
+{
+  "globals": {
+    // Put things like jQuery, etc
+    "jQuery": true,
+    "$": true
+  },
+  "env": {
+    // I write for browser
+    "browser": true,
+    // in CommonJS
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "class-property"
+  ],
+  "extends" : "airbnb",
+  "rules": {
+    "no-console": 0,
+    "indent": ["error", "tab"],
+    "semi": [1, "never"],
+    "react/jsx-indent": [2, "tab"],
+    "max-len": [2, 200],
+    "array-callback-return": 0,
+    "react/no-multi-comp": 0,
+    "react/jsx-indent-props": [2, 'tab'],
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "import/no-extraneous-dependencies": 0,
+    "no-tabs": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    'consistent-return': 0,
+    'no-restricted-syntax': [
+      'error',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
+    ],
+  },
+}

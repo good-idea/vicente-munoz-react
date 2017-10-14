@@ -16,16 +16,16 @@ class ResponsiveImage extends React.Component {
 			return previous
 		}, []).width
 		const alt = props.meta.caption || props.parentTitle
-		const figCaption = (props.meta.caption) ? (
-			<figCaption>
+		const figcaption = (props.meta.caption) ? (
+			<figcaption>
 				{markdownToJSX(props.meta.caption)}
-			</figCaption>
+			</figcaption>
 		) : null
 
 		const initialState = {
 			alt,
 			classNames: [],
-			figCaption,
+			figcaption,
 			loaded: false,
 			maxWidth,
 			sizes,

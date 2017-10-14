@@ -20,6 +20,7 @@ class App extends React.Component {
 			ready: false,
 			authorized: [],
 			activeSection: undefined,
+			showSplash: true,
 		}
 	}
 
@@ -28,6 +29,7 @@ class App extends React.Component {
 		const authorized = R.split(',', Cookies.get('authorized') || '')
 		axios.get('/api/initial').then((response) => {
 			console.log(`Duration of call: ${Date.now() - timer}`)
+			console.log(response.data)
 			this.setState({
 				ready: true,
 				...response.data,
@@ -36,12 +38,16 @@ class App extends React.Component {
 		})
 	}
 
+	disableSplash = () => {
+		this.setState({ showSplash: false })
+	}
+
 	authorizeSection(slug) {
 		const authorized = R.pipe(
 			R.append(slug),
 			R.uniq,
 		)(this.state.authorized)
-		Cookies.set('authorized', R.join(',', authorized), 7)
+		Cookies.set('authorized', R.join(',', authorized), { expires: 7 })
 		this.setState({ authorized, activeSection: slug })
 	}
 
@@ -49,13 +55,18 @@ class App extends React.Component {
 		if (!this.state.ready) return null
 		return (
 			<div className="app">
-				<Navigation location={this.props.location} {...this.state} />
+				<Navigation
+					location={this.props.location}
+					signature={this.state.home.signature.url}
+					isInSplash={this.state.showSplash}
+					{...this.state}
+				/>
 				<Switch>
 					<Route
 						exact
 						path="/"
 						render={() => (
-							<Home {...this.state} />
+							<Home disableSplash={this.disableSplash} {...this.state} />
 						)}
 					/>
 					<Route

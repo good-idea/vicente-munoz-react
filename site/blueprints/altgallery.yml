@@ -1,0 +1,15 @@
+title: Project (alt gallery)
+pages: false
+preview: false
+files: true
+  fields:
+    caption:
+      type: markdown
+      label: Image Caption
+      tools:
+        - bold
+        - italic
+fields:
+  title:
+    label: Alt Gallery Title
+    type:  text

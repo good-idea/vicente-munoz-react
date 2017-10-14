@@ -44,7 +44,7 @@ class NavSection extends React.Component {
 		return (
 			<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
 				<h3 className="nav__sectionTitle">
-					<button onClick={this.handleClick} >{this.props.title}</button>
+					<button onClick={this.handleClick}>{this.props.title}</button>
 				</h3>
 				<div className="nav__subnav">
 					{this.props.children.map(project => (
@@ -100,6 +100,10 @@ class Navigation extends React.Component {
 		window.addEventListener('scroll', this.handleScroll)
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll)
+	}
+
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.activeSection && this.state.activeSection !== nextProps.activeSection) {
 			this.setState({ activeSection: nextProps.activeSection })
@@ -111,19 +115,23 @@ class Navigation extends React.Component {
 	}
 
 	handleScroll() {
-		const visible = (document.body.scrollTop === 0 && document.body.scrollLeft === 0)
+		const visible = (document.documentElement.scrollTop === 0 && document.documentElement.scrollLeft === 0)
 		if (this.state.visible !== visible) {
 			this.setState({ visible })
 		}
 	}
 
 	render() {
-		const navClass = (this.state.visible) ? 'visible' : ''
+		const classNames = []
+		if (this.state.visible) classNames.push('visible')
+		if (this.state.isInSplash) classNames.push('inSplash')
 		return (
-			<nav className={navClass}>
-				<h2 className="nav__title">
-					<Link to="/">Vicente Munoz</Link>
-				</h2>
+			<nav className={cn(classNames)}>
+				<div className="nav__title">
+					<Link to="/">
+						<img src={this.props.signature} alt={this.props.title} />
+					</Link>
+				</div>
 				{this.props.sections.map(section => (
 					<NavSection
 						key={`nav-section-${section.slug}`}

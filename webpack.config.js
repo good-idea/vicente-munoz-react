@@ -1,18 +1,25 @@
 const path = require('path')
-
-const entries = {
-	bundle: './src/js/bundle.js',
-}
+const webpack = require('webpack')
 
 const config = () => (
 	{
-		entry: entries,
+
+		entry: [
+			'react-hot-loader/patch',
+			'webpack-dev-server/client?http://localhost:3000',
+			'webpack/hot/only-dev-server',
+			'./src/js/bundle.js',
+		],
+
 		output: {
 			path: path.resolve(__dirname, 'assets/js'),
-			filename: '[name].js',
-			sourceMapFilename: '[name].js.map',
+			publicPath: '/assets/js/',
+			filename: 'bundle.js',
+			sourceMapFilename: 'bundle.js.map',
 		},
+
 		devtool: 'cheap-module-source-map',
+
 		module: {
 			rules: [
 				{
@@ -22,6 +29,22 @@ const config = () => (
 				},
 			],
 		},
+
+		devServer: {
+			historyApiFallback: true,
+			hot: true,
+			port: 3000,
+			proxy: {
+				'/api': {
+					target: 'http://localhost:8080',
+				},
+			},
+		},
+
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NamedModulesPlugin(),
+		],
 	}
 )
 

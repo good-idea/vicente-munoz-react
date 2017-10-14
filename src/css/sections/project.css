@@ -63,3 +63,10 @@ main.project,
 .project__gallery figcaption {
 	text-align: right;
 }
+
+.project__altGalleryToggle {
+	float: right;
+	margin-top: 2rem;
+	font-style: italic;
+	color: grey;
+}

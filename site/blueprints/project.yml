@@ -1,5 +1,8 @@
 title: Project
-pages: false
+pages:
+  max: 1
+  hide: true
+  template: altgallery
 files: true
   fields:
     caption:
@@ -35,3 +38,12 @@ fields:
       - unorderedList
       - orderedList
       - link
+  childrenList:
+    type: subpagelist
+    label: Alt Gallery
+  mainGalleryTitle:
+    type: text
+    label: Main Gallery Title
+    required: true
+    default: Project Images
+    help: the button text that will take viewers back to the main gallery
