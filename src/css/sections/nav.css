@@ -1,11 +1,16 @@
 nav {
 	display: none;
+	pointer-events: none;
 	flex-direction: column;
 	justify-content: flex-start;
 	position: fixed;
 	padding: 2rem 2rem 4rem;
 	z-index: 10;
 	min-height: 100vh;
+
+	a {
+		pointer-events: initial;
+	}
 }
 
 nav.visible {
@@ -51,12 +56,13 @@ nav.inSplash {
 	justify-content: flex-end;;
 }
 
-.nav__item {
+nav h3 {
 	display: inline-block;
+}
+
+.nav__item {
 	margin-right: 1em;
 	white-space: nowrap;
-	padding: 0 0.2em;
-	background: white;
 
 	a {
 		position: relative;
@@ -72,6 +78,28 @@ nav.inSplash {
 			background: black;
 			width: 100%;
 			height: 2px;
+		}
+	}
+}
+
+@media screen and (max-width: $break-medium) {
+	nav {
+		display: block;
+		pointer-events: initial;
+		position: relative;
+		min-height: initial;
+		padding: 2rem 4rem;
+	}
+
+	.nav__infoPages {
+		margin-top: 2rem;
+
+		h3 {
+			display: inline-block;
+
+			& + h3 {
+				margin-left: 1rem;
+			}
 		}
 	}
 }

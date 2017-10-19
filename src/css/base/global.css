@@ -5,6 +5,7 @@ html, body, #root {
 main {
 	padding-top: 7rem;
 	padding-left: 24rem;
+	padding-bottom: 4rem;
 }
 
 /**
@@ -20,78 +21,97 @@ input {
  * Responsive Image component
  */
 
- figure {
- 	position: relative;
+figure {
+	position: relative;
 
- 	img,
- 	.loading-placeholder {
+	img,
+	.loading-placeholder {
+	position: absolute;
+		width: 100%;
+		max-height: calc(100vh - 4rem);
+		object-fit: contain;
+		object-position: 0 0;
+	}
+
+	.canvas-placeholder {
+		@mixin invisible;
 		position: absolute;
- 		width: 100%;
- 		max-height: calc(100vh - 4rem);
- 		object-fit: contain;
- 		object-position: 0 0;
- 	}
+	}
 
-	/*.loading-placeholder {
-		position: absolute;
-	}*/
+	.fullImage {
+		top: 0;
+		z-index: 2;
+		opacity: 0;
+		transition: 0.3s;
+	}
 
- 	.canvas-placeholder {
- 		@mixin invisible;
- 		position: absolute;
- 	}
+	.loading-placeholder {
+		opacity: 1;
+		z-index: 0;
+		position: relative;
+		max-width: 100%;
+	}
 
- 	.fullImage {
- 		top: 0;
- 		z-index: 2;
- 		opacity: 0;
- 		transition: 0.3s;
- 	}
+	.loading-placeholder--bare {
+		background: $grey0;
+		width: 100%;
+	}
 
- 	.loading-placeholder {
- 		opacity: 1;
- 		z-index: 0;
- 		position: relative;
- 		max-width: 100%;
- 	}
+	&.placeholderLoaded {
+		.fullImage {
+			display: block;
+		}
+	}
 
- 	.loading-placeholder--bare {
- 		background: $grey0;
- 		width: 100%;
- 	}
+	&.loaded .fullImage {
+		opacity: 1;
+		/*position: relative;*/
+	}
 
- 	&.placeholderLoaded {
- 		.fullImage {
- 			display: block;
- 		}
- 	}
+}
 
- 	&.loaded .fullImage {
- 		opacity: 1;
- 		/*position: relative;*/
- 	}
+figcaption {
+	margin-top: .5rem;
+	position: relative;
+}
 
- }
+figure.placeholder {
 
- figcaption {
- 	margin-top: .5rem;
- 	position: relative;
- }
+	.placeholder__image {
+		width: 100%;
+		padding-bottom: 56%;
+		background: $grey1;
+	}
 
- figure.placeholder {
+	figcaption {
+		background: $grey1;
+		width: 15rem;
 
- 	.placeholder__image {
- 		width: 100%;
- 		padding-bottom: 56%;
- 		background: $grey1;
- 	}
+		&:before {
+			content: '\00a0';
+		}
+	}
+}
 
- 	figcaption {
- 		background: $grey1;
- 		width: 15rem;
 
- 		&:before {
- 			content: '\00a0';
- 		}
- 	}
- }
+.column {
+	width: calc(100% - 4rem);
+	max-width: 65rem;
+}
+
+.column--narrow {
+	@extend .column;
+	max-width: 45rem;
+	margin: 0 auto;
+}
+
+@media screen and (max-width: $break-medium) {
+	main {
+		padding: 4rem;
+	}
+
+	.column {
+		margin: 0 auto;
+		width: 100%;
+	}
+}

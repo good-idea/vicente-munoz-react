@@ -4,17 +4,23 @@ import R from 'ramda'
 import seedrandom from 'seedrandom'
 import { Link } from 'react-router-dom'
 
+import Warp from './Warp'
 import ResponsiveImage from './ResponsiveImage'
 import { shuffleArray, cn } from '../utils/helpers'
+
+let mod
+if (window.outerWidth > 820) mod = 1
+else if (window.outerWidth > 650) mod = 0.5
+else mod = 0.31
 
 const GridImage = (props) => {
 	const rand = seedrandom(`${props.url}-${props.index}`)()
 	const containerWidth = Math.ceil((Math.floor(rand * 8) + 1) / 2)
 	const padding = [
 		0,
-		Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2),
-		Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2),
-		Math.floor(rand * 10 * (4 - containerWidth)) + 15,
+		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2)),
+		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2)),
+		mod * (Math.floor(rand * 10 * (4 - containerWidth)) + 15),
 	].reduce((acc, current) => (
 		`${acc} ${current}%`
 	), '')
@@ -86,18 +92,21 @@ class Home extends React.Component {
 			shuffleArray,
 		)(this.props.sections)
 
-		const button = (this.props.showSplash)
-			? (
-				<button className="home__splash" onClick={this.props.disableSplash}>
-					<img src={this.props.home.warpImage.url} alt="Vicente Muñoz" />
-				</button>
-			) : null
+		// const button = (this.props.showSplash)
+		// 	? (
+		// 		<Warp
+		// 			className="home__splash"
+		// 			onClick={this.props.disableSplash}
+		// 			imageUrl={this.props.home.warpImage.url}
+		// 			alt="Vicente Muñoz"
+		// 		/>
+		// 	) : null
 
-		const className = (this.props.showSplash) ? 'home withSplash' : 'home'
+		// const className = (this.props.showSplash) ? 'home withSplash' : 'home'
 
 		return (
-			<main className={className}>
-				{button}
+			<main className="home">
+				{/* {button} */}
 				<div className="imageGrid">
 					{randomImages.map((image, index) => (
 						<GridImage key={`image-${image.parentId}-${image.filename}`} index={index} {...image} />

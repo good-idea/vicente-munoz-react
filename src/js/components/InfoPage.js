@@ -16,7 +16,7 @@ const InfoPage = (props) => {
 		</div>) :
 		null
 	const cover = (props.cover) ?
-		<ResponsiveImage {...props.cover} classNames={['info__cover']} /> :
+		<ResponsiveImage {...props.cover} classNames={'info__cover'} /> :
 		null
 	return (
 		<main className="info">

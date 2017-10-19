@@ -10,11 +10,17 @@ class ResponsiveImage extends React.Component {
 		super(props)
 		const sizes = props.sizes || '100vw'
 		const maxWidth = props.srcset.reduce((previous, current) => {
-			if (current.width > previous.width) {
+			if (current.width > previous) {
 				return current
 			}
 			return previous
-		}, []).width
+		}, 0).width
+		const maxHeight = props.srcset.reduce((previous, current) => {
+			if (current.height > previous) {
+				return current
+			}
+			return previous
+		}, 0).height
 		const alt = props.meta.caption || props.parentTitle
 		const figcaption = (props.meta.caption) ? (
 			<figcaption>
@@ -28,6 +34,7 @@ class ResponsiveImage extends React.Component {
 			figcaption,
 			loaded: false,
 			maxWidth,
+			maxHeight,
 			sizes,
 		}
 

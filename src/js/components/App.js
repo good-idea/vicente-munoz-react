@@ -24,12 +24,16 @@ class App extends React.Component {
 		}
 	}
 
+	componentDidCatch(error, info) {
+		console.log(error, info)
+	}
+
 	componentDidMount() {
-		const timer = Date.now()
+		// const timer = Date.now()
 		const authorized = R.split(',', Cookies.get('authorized') || '')
 		axios.get('/api/initial').then((response) => {
-			console.log(`Duration of call: ${Date.now() - timer}`)
-			console.log(response.data)
+			// console.log(`Duration of call: ${Date.now() - timer}`)
+			// console.log(response.data)
 			this.setState({
 				ready: true,
 				...response.data,

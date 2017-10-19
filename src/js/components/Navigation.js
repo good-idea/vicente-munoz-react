@@ -142,11 +142,13 @@ class Navigation extends React.Component {
 					/>
 				))}
 				<div className="nav__infoPages">
-					{this.props.infoPages.map(page => (
-						<h3 key={`infoPage-${page.id}`}>
-							<Link to={page.id}>{page.title}</Link>
-						</h3>
-					))}
+					<div className="nav__infoPages--inner">
+						{this.props.infoPages.map(page => (
+							<h3 key={`infoPage-${page.id}`}>
+								<Link to={`/${page.id}`}>{page.title}</Link>
+							</h3>
+						))}
+					</div>
 				</div>
 			</nav>
 		)

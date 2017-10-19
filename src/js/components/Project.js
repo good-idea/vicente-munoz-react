@@ -25,7 +25,7 @@ class Project extends React.Component {
 		const altButton = (this.props.altGallery)
 			? (
 				<button className="project__altGalleryToggle" onClick={this.toggleAltGallery}>
-					<h5>{(this.state.showAltGallery) ? this.props.maingallerytitle : this.props.altGallery.title}</h5>
+					<h5>See {(this.state.showAltGallery) ? this.props.maingallerytitle : this.props.altGallery.title}</h5>
 				</button>
 			) : null
 

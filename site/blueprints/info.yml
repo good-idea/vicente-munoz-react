@@ -22,9 +22,11 @@ fields:
   text:
     label: Text
     type: markdown
+    help: to make a line break without space, leave two empty spaces at the end of a line
     tools:
       - bold
       - italic
       - unorderedList
       - orderedList
       - link
+      - mail

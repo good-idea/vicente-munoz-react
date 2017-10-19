@@ -16,6 +16,7 @@ h4, button, textarea, select, label { font-size: $h4; }
 p, li, input, textarea { font-size: $p; }
 h5, figcaption { font-size: $h5; }
 
+ul + p,
 p + p { margin-top: 1em; }
 
 strong { font-weight: 700; }
@@ -31,10 +32,10 @@ figcaption * { font-size: inherit; }
 
 @media screen and (max-width: $break-small) {
 	$m-h1: 2.2rem;
-	$m-h2: 1.8rem;
-	$m-h3: 1.8rem;
-	$m-h4: 1.5rem;
-	$m-p: 1.5rem;
+	$m-h2: 2rem;
+	$m-h3: 1.4rem;
+	$m-h4: 1.4rem;
+	$m-p: 1.4rem;
 	$m-h5: 1.2rem;
 
 	h1 { font-size: $m-h1; }
@@ -44,4 +45,10 @@ figcaption * { font-size: inherit; }
 	p, li, input, textarea { font-size: $m-p; }
 	h5, figcaption { font-size: $m-h5; }
 	figcaption * { font-size: inherit; }
+}
+
+h3, h4, h5 {
+	> button {
+		 font-size: inherit;
+	}
 }

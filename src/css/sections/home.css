@@ -21,7 +21,6 @@ main.home {
 	}
 }
 
-
 .imageGrid {
 	width: 100%;
 	max-width: 160rem;
@@ -50,6 +49,14 @@ main.home {
 	&.w-1 {
 		flex-basis: 80%;
 	}
+
+	&:nth-of-type(3n + 1) {
+		margin-top: -1rem;
+	}
+
+	&:nth-of-type(3n + 2) {
+		margin-top: -2rem;
+	}
 }
 
 .gridImage__title {
@@ -60,6 +67,47 @@ main.home {
 .imageGrid__item a:hover {
 	.gridImage__title {
 		opacity: 1;
+	}
+}
+/*
+$break-large: 900px;
+$break-medium: 760px;
+$break-small: 580px;*/
+
+@media screen and (max-width: $break-medium) {
+	main.home {
+		padding-top: 2rem;
+	}
+
+	.imageGrid__item {
+		&.w-4 {
+			flex-basis: 40%;
+		}
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	.imageGrid__item {
+		&.w-1 {
+			flex-basis: 100%;
+		}
+
+		&.w-2,
+		&.w-3 {
+			flex-basis: 85%;
+		}
+
+		&.w-4 {
+			flex-basis: 70%;
+		}
+
+		&:nth-of-type(3n + 1) {
+			margin-left: -4rem;
+		}
+
+		&:nth-of-type(3n) {
+			margin-right: -4rem;
+		}
 	}
 }
 
