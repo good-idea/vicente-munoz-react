@@ -47,7 +47,8 @@ main.home {
 	}
 
 	&.w-1 {
-		flex-basis: 80%;
+		flex-basis: 75%;
+		padding: 0 5%;
 	}
 
 	&:nth-of-type(3n + 1) {
@@ -77,6 +78,7 @@ $break-small: 580px;*/
 @media screen and (max-width: $break-medium) {
 	main.home {
 		padding-top: 2rem;
+		padding-right: 0;
 	}
 
 	.imageGrid__item {
@@ -94,11 +96,11 @@ $break-small: 580px;*/
 
 		&.w-2,
 		&.w-3 {
-			flex-basis: 85%;
+			flex-basis: 90%;
 		}
 
 		&.w-4 {
-			flex-basis: 70%;
+			flex-basis: 90%;
 		}
 
 		&:nth-of-type(3n + 1) {

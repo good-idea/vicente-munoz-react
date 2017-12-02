@@ -14,7 +14,8 @@ import { cn } from '../utils/helpers'
 const IndexImages = (props) => {
 	const images = R.take(3, props.images)
 	const classNames = ['index__images']
-	classNames.push(`index__images--layout-${props.index + 1}`)
+	const layout = (props.index % 6) + 1
+	classNames.push(`index__images--layout-${layout}`)
 	return (
 		<div className={cn(classNames)}>
 			{images.map(i => <ResponsiveImage sizes={'20vw'} key={i.filename} {...i} />)}

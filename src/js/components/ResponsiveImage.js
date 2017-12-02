@@ -22,16 +22,11 @@ class ResponsiveImage extends React.Component {
 			return previous
 		}, 0).height
 		const alt = props.meta.caption || props.parentTitle
-		const figcaption = (props.meta.caption) ? (
-			<figcaption>
-				{markdownToJSX(props.meta.caption)}
-			</figcaption>
-		) : null
+
 
 		const initialState = {
 			alt,
 			classNames: [],
-			figcaption,
 			loaded: false,
 			maxWidth,
 			maxHeight,
@@ -111,6 +106,11 @@ class ResponsiveImage extends React.Component {
 	}
 
 	render() {
+		const figCaption = (this.props.meta.caption) ? (
+			<figcaption>
+				{markdownToJSX(this.props.meta.caption)}
+			</figcaption>
+		) : null
 		return (
 			<figure
 				style={{ maxWidth: this.state.maxWidth }}
@@ -125,7 +125,7 @@ class ResponsiveImage extends React.Component {
 					alt={this.state.alt}
 				/>
 				{this.renderPlaceholder()}
-				{ this.state.figCaption }
+				{ figCaption }
 			</figure>
 		)
 	}

@@ -21,15 +21,15 @@ fields:
     label: Year
     type: number
     width: 1/4
-  materials:
-    label: Materials / Context
-    type: markdown
-    tools:
-      - bold
-      - italic
-      - unorderedList
-      - orderedList
-      - link
+  # materials:
+  #   label: Materials / Context
+  #   type: markdown
+  #   tools:
+  #     - bold
+  #     - italic
+  #     - unorderedList
+  #     - orderedList
+  #     - link
   description:
     label: Project Description
     type: markdown

@@ -17,9 +17,9 @@ const GridImage = (props) => {
 	const rand = seedrandom(`${props.url}-${props.index}`)()
 	const containerWidth = Math.ceil((Math.floor(rand * 8) + 1) / 2)
 	const padding = [
-		0,
-		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2)),
-		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 5 + ((4 - containerWidth) * 2)),
+		5,
+		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 10 + ((4 - containerWidth) * 2)),
+		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 10 + ((4 - containerWidth) * 2)),
 		mod * (Math.floor(rand * 10 * (4 - containerWidth)) + 15),
 	].reduce((acc, current) => (
 		`${acc} ${current}%`

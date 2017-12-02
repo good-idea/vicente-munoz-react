@@ -9,7 +9,6 @@ import { markdownToJSX } from '../utils/text'
  */
 
 const InfoPage = (props) => {
-	console.log(props)
 	const text = (props.text.length > 0) ?
 		(<div className="infoPage__text">
 			{markdownToJSX(props.text)}

@@ -29,7 +29,7 @@ class Project extends React.Component {
 				</button>
 			) : null
 
-		const description = (this.props.description.length > 0)
+		const description = (this.props.description.length > 0 || this.props.altGallery)
 			? (
 				<div className="project__description project__column">
 					{markdownToJSX(this.props.description)}
