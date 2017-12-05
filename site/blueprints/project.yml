@@ -1,6 +1,5 @@
 title: Project
 pages:
-  max: 1
   hide: true
   template: altgallery
 files: true
@@ -21,6 +20,14 @@ fields:
     label: Year
     type: number
     width: 1/4
+  thumbnails:
+    label: Main Thumbnails
+    type: selector
+    mode: multiple
+    help: Prioritize these images to be shown as thumbnails on the homepage or index view
+    size: 5
+    types:
+      - image
   # materials:
   #   label: Materials / Context
   #   type: markdown
@@ -31,7 +38,7 @@ fields:
   #     - orderedList
   #     - link
   description:
-    label: Project Description
+    label: Project Description (en)
     type: markdown
     help: to make a line break without space, leave two empty spaces at the end of a line
     tools:
@@ -40,12 +47,22 @@ fields:
       - unorderedList
       - orderedList
       - link
-  childrenList:
-    type: subpagelist
-    label: Alt Gallery
+  esdescription:
+    label: Project Description (es)
+    type: markdown
+    help: to make a line break without space, leave two empty spaces at the end of a line
+    tools:
+      - bold
+      - italic
+      - unorderedList
+      - orderedList
+      - link
   mainGalleryTitle:
     type: text
     label: Main Gallery Title
     required: true
     default: Project Images
     help: the button text that will take viewers back to the main gallery
+  childrenList:
+    type: subpagelist
+    label: Alt Gallery

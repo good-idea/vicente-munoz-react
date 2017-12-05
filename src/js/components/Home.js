@@ -84,6 +84,7 @@ class Home extends React.Component {
 			R.map(project => ({
 				images: R.pipe(
 					shuffleArray,
+					R.sortBy(p => R.prop('pinned', p) !== true),
 					R.slice(0, imageCount),
 				)(project.images),
 			})),
@@ -91,6 +92,8 @@ class Home extends React.Component {
 			R.flatten,
 			shuffleArray,
 		)(this.props.sections)
+
+		console.log(randomImages)
 
 		// const button = (this.props.showSplash)
 		// 	? (

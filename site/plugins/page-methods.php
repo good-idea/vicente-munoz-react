@@ -19,6 +19,7 @@ function buildImage($imageSource) {
 	$image = new StdClass();
 	$image->srcset = [];
 	$image->url = (string)$imageSource->url();
+	$image->filename = (string)$imageSource->fileName();
 	$image->meta = $imageSource->meta()->toArray();
 	$image->parentTitle = (string)$imageSource->page()->title();
 	$image->parentId = (string)$imageSource->page()->id();

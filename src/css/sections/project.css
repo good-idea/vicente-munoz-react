@@ -21,7 +21,7 @@ main.project {
 
 .project__intro,
 .project__column {
-	height: 100%;
+	max-height: 100%;
 }
 
 .project__intro,
@@ -29,6 +29,37 @@ main.project {
 .project__gallery figure {
 	display: inline-block;
 	vertical-align: top;
+}
+
+.project__languageSwitcher,
+.project__gallerySwitcher {
+	/*display: flex;*/
+	flex-direction: column;
+	justify-content: flex-end;
+	text-align: right;
+	margin-top: 2rem;
+	color: grey;
+}
+
+.lang--es .languageButton--es,
+.lang--en .languageButton--en {
+	border-bottom: 1px solid currentColor;
+}
+
+.project__gallerySwitcherItem {
+	text-align: right;
+	border-radius: 0;
+	margin-top: 0.2em;
+	border-bottom: 1px solid transparent;
+
+	button {
+		font-style: italic;
+		border-radius: 0;
+	}
+}
+
+.project__gallerySwitcherItem--active button {
+	border-bottom: 1px solid currentColor;
 }
 
 .project__title {
@@ -64,12 +95,11 @@ main.project,
 	white-space: initial;
 }
 
-.project__altGalleryToggle {
-	float: right;
-	margin-top: 2rem;
-	font-style: italic;
-	color: grey;
+.project__gallery figcaption {
+	text-align: right;
 }
+
+
 
 
 @media screen and (max-width: $break-medium) {
@@ -79,8 +109,9 @@ main.project,
 		white-space: initial;
 	}
 
-	.project__altGalleryToggle {
-		float: none;
+	.project__gallerySwitcherItem,
+	.project__languageSwitcher {
+		text-align: left;
 	}
 
 	.project__intro {
@@ -105,5 +136,13 @@ main.project,
 				padding-right: initial;
 			}
 		}
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	main.project {
+		padding: 2rem;
+		height: auto;
+		white-space: initial;
 	}
 }

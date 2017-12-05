@@ -58,10 +58,9 @@ nav.inSplash {
 
 nav h3 {
 	display: inline-block;
-	padding: 0 0.2em;
 
 	&:hover {
-		background-color: yellow;
+		color: yellow;
 	}
 }
 
@@ -106,5 +105,11 @@ nav h3 {
 				margin-left: 1rem;
 			}
 		}
+	}
+}
+
+@media screen and (max-width: $break-small) {
+	nav {
+		padding: 2rem;
 	}
 }

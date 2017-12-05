@@ -12,7 +12,10 @@ import { cn } from '../utils/helpers'
  */
 
 const IndexImages = (props) => {
-	const images = R.take(3, props.images)
+	const images = R.pipe(
+		R.sortBy(p => R.prop('pinned', p) !== true),
+		R.take(3),
+	)(props.images)
 	const classNames = ['index__images']
 	const layout = (props.index % 6) + 1
 	classNames.push(`index__images--layout-${layout}`)

@@ -24,7 +24,7 @@ main.home {
 .imageGrid {
 	width: 100%;
 	max-width: 160rem;
-	padding: 3rem 3rem 12rem;
+	padding: 3rem;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -38,11 +38,14 @@ main.home {
 	position: relative;
 
 	&.w-4 {
+		flex-basis: 25%;
+	}
+
+	&.w-3 {
 		flex-basis: calc(100% / 3);
 	}
 
-	&.w-2,
-	&.w-3 {
+	&.w-2 {
 		flex-basis: 50%;
 	}
 
@@ -52,11 +55,11 @@ main.home {
 	}
 
 	&:nth-of-type(3n + 1) {
-		margin-top: -1rem;
+		margin-top: 12rem;
 	}
 
 	&:nth-of-type(3n + 2) {
-		margin-top: -2rem;
+		margin-top: 4rem;
 	}
 }
 

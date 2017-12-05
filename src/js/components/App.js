@@ -21,6 +21,7 @@ class App extends React.Component {
 			authorized: [],
 			activeSection: undefined,
 			showSplash: true,
+			language: 'en',
 		}
 	}
 
@@ -40,6 +41,10 @@ class App extends React.Component {
 				authorized,
 			})
 		})
+	}
+
+	changeLanguage = (language) => {
+		this.setState({ language })
 	}
 
 	disableSplash = () => {
@@ -105,13 +110,19 @@ class App extends React.Component {
 							const project = this.state.sections
 								.find(s => s.slug === match.params.section)
 								.children.find(p => p.slug === match.params.project)
-							console.log(project.protected, this.state.authorized, project.section)
 							if (project.protected === true && !this.state.authorized.includes(project.section)) {
-								conso
 								history.push(`/${project.section}`)
 								return null
 							}
-							return <Project authorized={this.state.authorized} history={history} {...project} />
+							return (
+								<Project
+									language={this.state.language}
+									changeLanguage={this.changeLanguage}
+									authorized={this.state.authorized}
+									history={history}
+									{...project}
+								/>
+							)
 						}}
 					/>
 					<Route component={NotFound} />
