@@ -44,7 +44,7 @@ const IndexTitle = (props) => {
 	return (
 		<div className="index__title">
 			<h1>
-				<Link to={props.id}>
+				<Link to={`/${props.id}`}>
 					{props.title}
 				</Link>
 			</h1>

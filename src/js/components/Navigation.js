@@ -18,24 +18,32 @@ class NavSection extends React.Component {
 		this.props.setActiveSection(this.props.slug)
 	}
 
+	renderChildren() {
+		if (this.props.location.pathname.replace(/^\//, '') === this.props.id) return null
+		return this.props.children.map(project => (
+			<h3 key={`nav-${this.props.slug}/${project.slug}`} className="nav__item">
+				<NavLink activeClassName="active" to={`/${this.props.slug}/${project.slug}`}>
+					{project.title}
+				</NavLink>
+			</h3>
+		))
+	}
+
 	render() {
 		if (this.props.protected && !this.props.authorized) return null
 
 		const classNames = ['nav__section']
 
-		// Link to an Index page
-		if (this.props.displayindex) {
-			classNames.push('nav__section--index')
-			return (
-				<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
-					<h3>
-						<NavLink to={`/${this.props.slug}`} activeClassName={'nav__section--activeIndex'}>
-							{this.props.title}
-						</NavLink>
-					</h3>
-				</div>
+		const buttonOrLink = (this.props.displayindex) ?
+			(
+				<NavLink to={`/${this.props.slug}`} activeClassName="nav__section--activeIndex">
+					{this.props.title}
+				</NavLink>
+			) :
+			(
+				<button onClick={this.handleClick}>{this.props.title}</button>
 			)
-		}
+		if (this.props.displayindex) classNames.push('nav__section--index')
 
 		classNames.push('nav_section--dropdown')
 		if (this.props.active) classNames.push('nav__section--active')
@@ -44,16 +52,10 @@ class NavSection extends React.Component {
 		return (
 			<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
 				<h3 className="nav__sectionTitle">
-					<button onClick={this.handleClick}>{this.props.title}</button>
+					{buttonOrLink}
 				</h3>
 				<div className="nav__subnav">
-					{this.props.children.map(project => (
-						<h3 key={`nav-${this.props.slug}/${project.slug}`} className="nav__item">
-							<NavLink activeClassName="active" to={`/${this.props.slug}/${project.slug}`}>
-								{project.title}
-							</NavLink>
-						</h3>
-					))}
+					{this.renderChildren()}
 				</div>
 			</div>
 		)
@@ -134,6 +136,7 @@ class Navigation extends React.Component {
 				</div>
 				{this.props.sections.map(section => (
 					<NavSection
+						location={this.props.location}
 						key={`nav-section-${section.slug}`}
 						setActiveSection={this.setActiveSection}
 						active={this.state.activeSection === section.slug}
