@@ -12,6 +12,17 @@ fields:
   title:
     label: Title
     type:  text
+  islink:
+    label: Link or Page
+    type: switch
+    texts:
+      - The menu item links out to another page
+      - The menu item opens this page
+    width: 1/2
+  link:
+    label: Link URL
+    type: url
+    width: 1/2
   cover_image:
     label: Cover Image
     type: selector

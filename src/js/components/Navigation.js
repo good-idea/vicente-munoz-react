@@ -5,6 +5,37 @@ import { Link, NavLink } from 'react-router-dom'
 import { cn } from '../utils/helpers'
 
 /**
+ * InfoLink
+ */
+
+const InfoLink = ({ id, title, link, islink }) => {
+	const infoLink = (islink === true)
+		? <a href={link} target="_blank" rel="nooopener">{title}</a>
+		: <Link href={`/${id}`} to={`/${id}`}>{title}</Link>
+	console.log(islink, infoLink)
+	return (
+		<div key={`infoPage-${id}`} className="nav__section">
+			<h3 >
+				{infoLink}
+			</h3>
+		</div>
+	)
+}
+
+InfoLink.propTypes = {
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	link: PropTypes.string,
+	islink: PropTypes.bool,
+}
+
+InfoLink.defaultProps = {
+	link: '',
+	islink: false,
+}
+
+
+/**
  * NavSection
  */
 
@@ -146,11 +177,7 @@ class Navigation extends React.Component {
 				))}
 				<div className="nav__infoPages">
 					<div className="nav__infoPages--inner">
-						{this.props.infoPages.map(page => (
-							<h3 key={`infoPage-${page.id}`}>
-								<Link to={`/${page.id}`}>{page.title}</Link>
-							</h3>
-						))}
+						{this.props.infoPages.map(page => <InfoLink {...page} />)}
 					</div>
 				</div>
 			</nav>
