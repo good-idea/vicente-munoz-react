@@ -9,7 +9,7 @@ function meta($page) {
 
 	$title = ($page->isHomepage()) ? $site->title() : $page->title() . " | " . $site->title();
 
-	$description = (strlen((string)$page->text()) > 0) ? meta_excerpt($page->text()) : $defaultDescription;
+	$description = (strlen((string)$page->description()) > 0) ? meta_excerpt($page->description()) : $defaultDescription;
 
 	$description = strip_tags(kirbytext($description));
 
