@@ -41,7 +41,9 @@ class Authorize extends React.Component {
 				<div className={cn(authClassNames)}>
 					<label htmlFor="password">Password</label>
 					<input
-						ref={(element) => { this.inputElement = element }}
+						ref={element => {
+							this.inputElement = element
+						}}
 						type="password"
 						name="password"
 						onChange={this.handleChange}
@@ -59,7 +61,7 @@ Authorize.propTypes = {
 	password: PropTypes.string.isRequired,
 	authorizeSection: PropTypes.func.isRequired,
 	history: PropTypes.shape().isRequired,
-	displayindex: PropTypes.boolean,
+	displayindex: PropTypes.bool,
 }
 
 Authorize.defaultProps = {
