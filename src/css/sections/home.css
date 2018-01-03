@@ -26,7 +26,7 @@ main.home {
 	max-width: 160rem;
 	padding: 3rem;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	flex-wrap: wrap;
 
 	figcaption {
@@ -36,6 +36,12 @@ main.home {
 
 .imageGrid__item {
 	position: relative;
+	display: flex;
+	align-items: center;
+
+	&.w-5 {
+		flex-basis: 20%;
+	}
 
 	&.w-4 {
 		flex-basis: 25%;
@@ -44,22 +50,13 @@ main.home {
 	&.w-3 {
 		flex-basis: calc(100% / 3);
 	}
-
 	&.w-2 {
-		flex-basis: 50%;
+		flex-basis: 40%;
 	}
 
 	&.w-1 {
-		flex-basis: 75%;
+		flex-basis: 70%;
 		padding: 0 5%;
-	}
-
-	&:nth-of-type(3n + 1) {
-		margin-top: 12rem;
-	}
-
-	&:nth-of-type(3n + 2) {
-		margin-top: 4rem;
 	}
 }
 
@@ -88,6 +85,9 @@ $break-small: 580px;*/
 		&.w-4 {
 			flex-basis: 40%;
 		}
+		&.w-5 {
+			flex-basis: 35%;
+		}
 	}
 }
 
@@ -99,19 +99,23 @@ $break-small: 580px;*/
 
 		&.w-2,
 		&.w-3 {
-			flex-basis: 90%;
+			flex-basis: 80%;
 		}
 
 		&.w-4 {
-			flex-basis: 90%;
+			flex-basis: 70%;
+		}
+
+		&.w-5 {
+			flex-basis: 52%;
 		}
 
 		&:nth-of-type(3n + 1) {
-			margin-left: -4rem;
+			margin-left: 3rem;
 		}
 
 		&:nth-of-type(3n) {
-			margin-right: -4rem;
+			margin-right: 3rem;
 		}
 	}
 }

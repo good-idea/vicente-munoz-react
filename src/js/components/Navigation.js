@@ -9,15 +9,19 @@ import { cn } from '../utils/helpers'
  */
 
 const InfoLink = ({ id, title, link, islink }) => {
-	const infoLink = (islink === true)
-		? <a href={link} target="_blank" rel="nooopener">{title}</a>
-		: <Link href={`/${id}`} to={`/${id}`}>{title}</Link>
-	console.log(islink, infoLink)
+	const infoLink =
+		islink === true ? (
+			<a href={link} target="_blank" rel="nooopener">
+				{title}
+			</a>
+		) : (
+			<Link href={`/${id}`} to={`/${id}`}>
+				{title}
+			</Link>
+		)
 	return (
 		<div key={`infoPage-${id}`} className="nav__section">
-			<h3 >
-				{infoLink}
-			</h3>
+			<h3>{infoLink}</h3>
 		</div>
 	)
 }
@@ -34,7 +38,6 @@ InfoLink.defaultProps = {
 	islink: false,
 }
 
-
 /**
  * NavSection
  */
@@ -50,10 +53,14 @@ class NavSection extends React.Component {
 	}
 
 	renderChildren() {
-		if (this.props.location.pathname.replace(/^\//, '') === this.props.id) return null
+		if (this.props.location.pathname.replace(/^\//, '') === this.props.id)
+			return null
 		return this.props.children.map(project => (
 			<h3 key={`nav-${this.props.slug}/${project.slug}`} className="nav__item">
-				<NavLink activeClassName="active" to={`/${this.props.slug}/${project.slug}`}>
+				<NavLink
+					activeClassName="active"
+					to={`/${this.props.slug}/${project.slug}`}
+				>
 					{project.title}
 				</NavLink>
 			</h3>
@@ -65,15 +72,16 @@ class NavSection extends React.Component {
 
 		const classNames = ['nav__section']
 
-		const buttonOrLink = (this.props.displayindex) ?
-			(
-				<NavLink to={`/${this.props.slug}`} activeClassName="nav__section--activeIndex">
-					{this.props.title}
-				</NavLink>
-			) :
-			(
-				<button onClick={this.handleClick}>{this.props.title}</button>
-			)
+		const buttonOrLink = this.props.displayindex ? (
+			<NavLink
+				to={`/${this.props.slug}`}
+				activeClassName="nav__section--activeIndex"
+			>
+				{this.props.title}
+			</NavLink>
+		) : (
+			<button onClick={this.handleClick}>{this.props.title}</button>
+		)
 		if (this.props.displayindex) classNames.push('nav__section--index')
 
 		classNames.push('nav_section--dropdown')
@@ -82,12 +90,8 @@ class NavSection extends React.Component {
 
 		return (
 			<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
-				<h3 className="nav__sectionTitle">
-					{buttonOrLink}
-				</h3>
-				<div className="nav__subnav">
-					{this.renderChildren()}
-				</div>
+				<h3 className="nav__sectionTitle">{buttonOrLink}</h3>
+				<div className="nav__subnav">{this.renderChildren()}</div>
 			</div>
 		)
 	}
@@ -138,7 +142,10 @@ class Navigation extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.activeSection && this.state.activeSection !== nextProps.activeSection) {
+		if (
+			nextProps.activeSection &&
+			this.state.activeSection !== nextProps.activeSection
+		) {
 			this.setState({ activeSection: nextProps.activeSection })
 		}
 	}
@@ -148,7 +155,9 @@ class Navigation extends React.Component {
 	}
 
 	handleScroll() {
-		const visible = (document.documentElement.scrollTop === 0 && document.documentElement.scrollLeft === 0)
+		const visible =
+			document.documentElement.scrollTop === 0 &&
+			document.documentElement.scrollLeft === 0
 		if (this.state.visible !== visible) {
 			this.setState({ visible })
 		}
@@ -177,14 +186,15 @@ class Navigation extends React.Component {
 				))}
 				<div className="nav__infoPages">
 					<div className="nav__infoPages--inner">
-						{this.props.infoPages.map(page => <InfoLink {...page} />)}
+						{this.props.infoPages.map(page => (
+							<InfoLink key={`nav-infoPage-${page.slug}`} {...page} />
+						))}
 					</div>
 				</div>
 			</nav>
 		)
 	}
 }
-
 
 Navigation.propTypes = {
 	sections: PropTypes.arrayOf(PropTypes.shape),

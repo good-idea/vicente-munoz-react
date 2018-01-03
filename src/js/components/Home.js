@@ -4,7 +4,6 @@ import R from 'ramda'
 import seedrandom from 'seedrandom'
 import { Link } from 'react-router-dom'
 
-import Warp from './Warp'
 import ResponsiveImage from './ResponsiveImage'
 import { shuffleArray, cn } from '../utils/helpers'
 
@@ -13,36 +12,56 @@ if (window.outerWidth > 820) mod = 1
 else if (window.outerWidth > 650) mod = 0.5
 else mod = 0.31
 
-const GridImage = (props) => {
-	const rand = seedrandom(`${props.url}-${props.index}`)()
-	const containerWidth = Math.ceil((Math.floor(rand * 8) + 1) / 2)
-	const padding = [
-		5,
-		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 10 + ((4 - containerWidth) * 2)),
-		mod * (Math.floor(rand * 10 * (5 - containerWidth)) + 10 + ((4 - containerWidth) * 2)),
-		mod * (Math.floor(rand * 10 * (4 - containerWidth)) + 15),
-	].reduce((acc, current) => (
-		`${acc} ${current}%`
-	), '')
+const widths = [
+	{ width: 1, chance: 0.1 },
+	{ width: 2, chance: 0.2 },
+	{ width: 3, chance: 0.3 },
+	{ width: 4, chance: 0.15 },
+	{ width: 5, chance: 0.25 },
+].reduce(
+	(acc, current) => [
+		...acc,
+		{
+			width: current.width,
+			chance:
+				Math.ceil(
+					(acc.length
+						? acc[acc.length - 1].chance + current.chance
+						: current.chance) * 100,
+				) / 100,
+		},
+	],
+	{},
+)
 
-	const classNames = [
-		'imageGrid__item',
-		`w-${containerWidth}`,
-	]
+const GridImage = props => {
+	const wRand = seedrandom(`${props.url}-${props.index}`)()
+	const pRand = seedrandom(wRand)()
+	const containerWidth = widths.find(a => a.chance >= wRand).width
+	// const paddingWidth = widths.find(a => a.chance >= pRand).width
+	const padding = [wRand * 35 + 5, pRand * 25, pRand * 40, wRand * 25].reduce(
+		(acc, current) => `${acc} ${current * mod}%`,
+		'',
+	)
+
+	// console.log(containerWidth, padding)
+	// const marginTop = `${rand * 25}%`
+
+	const classNames = ['imageGrid__item', `w-${containerWidth}`]
 
 	const style = { padding }
 
 	let sizes
 	switch (containerWidth) {
-	case 2:
-	case 3:
-		sizes = '40vw'
-		break
-	case 4:
-		sizes = '25vw'
-		break
-	default:
-		sizes = '80vw'
+		case 2:
+		case 3:
+			sizes = '40vw'
+			break
+		case 4:
+			sizes = '25vw'
+			break
+		default:
+			sizes = '80vw'
 	}
 
 	return (
@@ -64,16 +83,13 @@ GridImage.propTypes = {
 	index: PropTypes.number.isRequired,
 }
 
-
 class Home extends React.Component {
 	constructor(props) {
 		super(props)
 		this.handleHover = this.handleHover.bind(this)
 	}
 
-	handleHover() {
-		console.log(this.state)
-	}
+	handleHover() {}
 
 	render() {
 		const imageCount = 3
@@ -93,8 +109,6 @@ class Home extends React.Component {
 			shuffleArray,
 		)(this.props.sections)
 
-		console.log(randomImages)
-
 		// const button = (this.props.showSplash)
 		// 	? (
 		// 		<Warp
@@ -112,7 +126,11 @@ class Home extends React.Component {
 				{/* {button} */}
 				<div className="imageGrid">
 					{randomImages.map((image, index) => (
-						<GridImage key={`image-${image.parentId}-${image.filename}`} index={index} {...image} />
+						<GridImage
+							key={`image-${image.parentId}-${image.filename}`}
+							index={index}
+							{...image}
+						/>
 					))}
 				</div>
 			</main>
@@ -127,6 +145,5 @@ Home.propTypes = {
 Home.defaultProps = {
 	sections: [],
 }
-
 
 export default Home
