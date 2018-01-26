@@ -38,14 +38,10 @@ const GridImage = props => {
 	const wRand = seedrandom(`${props.url}-${props.index}`)()
 	const pRand = seedrandom(wRand)()
 	const containerWidth = widths.find(a => a.chance >= wRand).width
-	// const paddingWidth = widths.find(a => a.chance >= pRand).width
 	const padding = [wRand * 35 + 5, pRand * 25, pRand * 40, wRand * 25].reduce(
 		(acc, current) => `${acc} ${current * mod}%`,
 		'',
 	)
-
-	// console.log(containerWidth, padding)
-	// const marginTop = `${rand * 25}%`
 
 	const classNames = ['imageGrid__item', `w-${containerWidth}`]
 

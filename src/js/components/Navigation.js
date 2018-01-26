@@ -52,37 +52,27 @@ class NavSection extends React.Component {
 		this.props.setActiveSection(this.props.slug)
 	}
 
-	renderChildren() {
-		if (this.props.location.pathname.replace(/^\//, '') === this.props.id)
-			return null
-		return this.props.children.map(project => (
-			<h3 key={`nav-${this.props.slug}/${project.slug}`} className="nav__item">
-				<NavLink
-					activeClassName="active"
-					to={`/${this.props.slug}/${project.slug}`}
-				>
-					{project.title}
-				</NavLink>
-			</h3>
-		))
-	}
-
 	render() {
 		if (this.props.protected && !this.props.authorized) return null
 
 		const classNames = ['nav__section']
 
-		const buttonOrLink = this.props.displayindex ? (
-			<NavLink
-				to={`/${this.props.slug}`}
-				activeClassName="nav__section--activeIndex"
-			>
-				{this.props.title}
-			</NavLink>
-		) : (
-			<button onClick={this.handleClick}>{this.props.title}</button>
-		)
-		if (this.props.displayindex) classNames.push('nav__section--index')
+		// Link to an Index page
+		if (this.props.displayindex) {
+			classNames.push('nav__section--index')
+			return (
+				<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
+					<h3>
+						<NavLink
+							to={`/${this.props.slug}`}
+							activeClassName="nav__section--activeIndex"
+						>
+							{this.props.title}
+						</NavLink>
+					</h3>
+				</div>
+			)
+		}
 
 		classNames.push('nav_section--dropdown')
 		if (this.props.active) classNames.push('nav__section--active')
@@ -90,8 +80,24 @@ class NavSection extends React.Component {
 
 		return (
 			<div key={`nav-${this.props.slug}`} className={cn(classNames)}>
-				<h3 className="nav__sectionTitle">{buttonOrLink}</h3>
-				<div className="nav__subnav">{this.renderChildren()}</div>
+				<h3 className="nav__sectionTitle">
+					<button onClick={this.handleClick}>{this.props.title}</button>
+				</h3>
+				<div className="nav__subnav">
+					{this.props.children.map(project => (
+						<h3
+							key={`nav-${this.props.slug}/${project.slug}`}
+							className="nav__item"
+						>
+							<NavLink
+								activeClassName="active"
+								to={`/${this.props.slug}/${project.slug}`}
+							>
+								{project.title}
+							</NavLink>
+						</h3>
+					))}
+				</div>
 			</div>
 		)
 	}
@@ -143,10 +149,15 @@ class Navigation extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (
-			nextProps.activeSection &&
-			this.state.activeSection !== nextProps.activeSection
+			nextProps.location.pathname.split('/')[1] !== this.state.activeSection
 		) {
-			this.setState({ activeSection: nextProps.activeSection })
+			console.log(
+				nextProps.location.pathname.split('/')[1],
+				this.state.activeSection,
+			)
+			this.setState({
+				activeSection: nextProps.location.pathname.split('/')[1],
+			})
 		}
 	}
 
@@ -200,12 +211,10 @@ Navigation.propTypes = {
 	sections: PropTypes.arrayOf(PropTypes.shape),
 	authorized: PropTypes.arrayOf(PropTypes.string),
 	infoPages: PropTypes.arrayOf(PropTypes.shape),
-	activeSection: PropTypes.string,
 	location: PropTypes.shape().isRequired,
 }
 
 Navigation.defaultProps = {
-	activeSection: undefined,
 	sections: [],
 	authorized: [],
 	infoPages: [],

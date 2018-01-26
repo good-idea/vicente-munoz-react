@@ -5,23 +5,20 @@ import Gallery from './Gallery'
 
 import { markdownToJSX } from '../utils/text'
 
-
 /**
  * GallerySwitcher
  */
 
-const GallerySwitcher = ({
-	label, slug, changeGallery, active,
-}) => {
+const GallerySwitcher = ({ label, slug, changeGallery, active }) => {
 	const handleClick = () => {
 		changeGallery(slug)
 	}
-	const className = (active) ? 'project__gallerySwitcherItem project__gallerySwitcherItem--active' : 'project__gallerySwitcherItem'
+	const className = active
+		? 'project__gallerySwitcherItem project__gallerySwitcherItem--active'
+		: 'project__gallerySwitcherItem'
 	return (
 		<h5 className={className}>
-			<button onClick={handleClick}>
-				{label}
-			</button>
+			<button onClick={handleClick}>{label}</button>
 		</h5>
 	)
 }
@@ -32,7 +29,6 @@ GallerySwitcher.propTypes = {
 	slug: PropTypes.string.isRequired,
 	changeGallery: PropTypes.func.isRequired,
 }
-
 
 /**
  * Project
@@ -46,19 +42,17 @@ class Project extends React.Component {
 		}
 	}
 
-	changeGallery = (slug) => {
+	changeGallery = slug => {
 		this.setState({ gallery: slug })
 	}
 
 	toggleLanguage = () => {
-		const newLanguage = (this.props.language === 'en') ? 'es' : 'en'
-		console.log(newLanguage)
+		const newLanguage = this.props.language === 'en' ? 'es' : 'en'
 		this.props.changeLanguage(newLanguage)
 	}
 
 	renderDescription() {
-		console.log(this.props.language)
-		return (this.props.language === 'en')
+		return this.props.language === 'en'
 			? markdownToJSX(this.props.description)
 			: markdownToJSX(this.props.esdescription)
 	}
@@ -102,16 +96,17 @@ class Project extends React.Component {
 	}
 
 	render() {
-		const description = (this.props.description.length > 0)
-			? (
+		const description =
+			this.props.description.length > 0 ? (
 				<div className="project__description project__column">
 					{markdownToJSX(this.props.description)}
 				</div>
 			) : null
 
-		const images = (this.state.gallery === 'main')
-			? this.props.images
-			: this.props.children.find(c => c.slug === this.state.gallery).images
+		const images =
+			this.state.gallery === 'main'
+				? this.props.images
+				: this.props.children.find(c => c.slug === this.state.gallery).images
 
 		return (
 			<main className="project">

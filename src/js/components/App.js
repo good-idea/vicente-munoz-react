@@ -25,16 +25,10 @@ class App extends React.Component {
 		}
 	}
 
-	componentDidCatch(error, info) {
-		console.log(error, info)
-	}
-
 	componentDidMount() {
 		// const timer = Date.now()
 		const authorized = R.split(',', Cookies.get('authorized') || '')
-		axios.get('/api/initial').then((response) => {
-			// console.log(`Duration of call: ${Date.now() - timer}`)
-			// console.log(response.data)
+		axios.get('/api/initial').then(response => {
 			this.setState({
 				ready: true,
 				...response.data,
@@ -43,7 +37,11 @@ class App extends React.Component {
 		})
 	}
 
-	changeLanguage = (language) => {
+	componentDidCatch(error, info) {
+		console.log(error, info)
+	}
+
+	changeLanguage = language => {
 		this.setState({ language })
 	}
 
@@ -52,10 +50,7 @@ class App extends React.Component {
 	}
 
 	authorizeSection(slug) {
-		const authorized = R.pipe(
-			R.append(slug),
-			R.uniq,
-		)(this.state.authorized)
+		const authorized = R.pipe(R.append(slug), R.uniq)(this.state.authorized)
 		Cookies.set('authorized', R.join(',', authorized), { expires: 7 })
 		this.setState({ authorized, activeSection: slug })
 	}
@@ -82,7 +77,9 @@ class App extends React.Component {
 						exact
 						path="/:slug"
 						render={({ match, history }) => {
-							const section = this.state.sections.find(s => s.slug === match.params.slug)
+							const section = this.state.sections.find(
+								s => s.slug === match.params.slug,
+							)
 							if (section) {
 								if (!this.state.authorized.includes(section.slug)) {
 									return (
@@ -96,7 +93,9 @@ class App extends React.Component {
 								return <Index {...section} />
 							}
 
-							const infoPage = this.state.infoPages.find(p => p.slug === match.params.slug)
+							const infoPage = this.state.infoPages.find(
+								p => p.slug === match.params.slug,
+							)
 
 							if (infoPage) return <InfoPage {...infoPage} />
 
@@ -110,7 +109,10 @@ class App extends React.Component {
 							const project = this.state.sections
 								.find(s => s.slug === match.params.section)
 								.children.find(p => p.slug === match.params.project)
-							if (project.protected === true && !this.state.authorized.includes(project.section)) {
+							if (
+								project.protected === true &&
+								!this.state.authorized.includes(project.section)
+							) {
 								history.push(`/${project.section}`)
 								return null
 							}
@@ -131,6 +133,5 @@ class App extends React.Component {
 		)
 	}
 }
-
 
 export default withRouter(App)
