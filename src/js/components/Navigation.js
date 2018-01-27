@@ -53,7 +53,7 @@ class NavSection extends React.Component {
 	}
 
 	render() {
-		if (this.props.protected && !this.props.authorized) return null
+		// if (this.props.protected && !this.props.authorized) return null
 
 		const classNames = ['nav__section']
 
