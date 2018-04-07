@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import App from './components/App'
 
-
-const renderApp = (Component) => {
+const renderApp = Component => {
 	render(
 		<AppContainer>
 			<BrowserRouter>

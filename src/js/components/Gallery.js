@@ -7,7 +7,7 @@ import ResponsiveImage from './ResponsiveImage'
  * Gallery
  */
 
-const Gallery = (props) => {
+const Gallery = props => {
 	return (
 		<div className="project__gallery">
 			{props.images.map(item => (
@@ -24,6 +24,5 @@ Gallery.propTypes = {
 Gallery.defaultProps = {
 	// title: 'My Title'
 }
-
 
 export default Gallery

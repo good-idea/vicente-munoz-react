@@ -19,7 +19,12 @@ class Warp extends React.Component {
 	render() {
 		return (
 			<div className={this.props.className}>
-				<canvas className="warp-canvas" ref={(element) => { this.canvas = element }} />
+				<canvas
+					className="warp-canvas"
+					ref={element => {
+						this.canvas = element
+					}}
+				/>
 				{/* <button className="home__splash" onClick={this.props.onClick}>
 					<img src={} alt="Vicente Muñoz" />
 				</button> */}

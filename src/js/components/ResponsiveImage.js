@@ -23,7 +23,6 @@ class ResponsiveImage extends React.Component {
 		}, 0).height
 		const alt = props.meta.caption || props.parentTitle
 
-
 		const initialState = {
 			alt,
 			classNames: [],
@@ -46,29 +45,37 @@ class ResponsiveImage extends React.Component {
 		this.handleImageLoaded = this.handleImageLoaded.bind(this)
 	}
 
-
 	componentWillReceiveProps(nextProps) {
-		if (this.props.noLoad && !nextProps.noLoad || this.props.url !== nextProps.url) {
+		if (
+			(this.props.noLoad && !nextProps.noLoad) ||
+			this.props.url !== nextProps.url
+		) {
 			const { src, srcsetString } = this.getSrc(nextProps)
 			const newState = { src, srcsetString }
-			if (this.props.url !== nextProps.url) newState.dataURI = this.makeCanvas(nextProps)
+			if (this.props.url !== nextProps.url)
+				newState.dataURI = this.makeCanvas(nextProps)
 			this.setState(newState)
 		}
 	}
 
 	getSrc(props = this.props) {
-		const src = (props.noLoad) ? '' : props.url
-		const srcsetString = (props.noLoad) ? '' : props.srcset.reduce((acc, current) => {
-			const commaSpace = (acc.length) ? ', ' : ''
-			return `${current.url} ${current.width}w${commaSpace}${acc}`
-		}, '')
+		const src = props.noLoad ? '' : props.url
+		const srcsetString = props.noLoad
+			? ''
+			: props.srcset.reduce((acc, current) => {
+					const commaSpace = acc.length ? ', ' : ''
+					return `${current.url} ${current.width}w${commaSpace}${acc}`
+			  }, '')
 		return { src, srcsetString }
 	}
 
 	makeCanvas(props = this.props) {
 		// get the ratio and generate a data URI for the placeholder
 		const original = props.srcset.find(img => img.height) || false
-		const ratio = (original.width && original.height) ? original.height / original.width : 0.56
+		const ratio =
+			original.width && original.height
+				? original.height / original.width
+				: 0.56
 		// generate a canvas and get its data URI to use as a placeholder
 		const canvas = window.document.createElement('canvas')
 		canvas.setAttribute('width', 1000)
@@ -93,7 +100,7 @@ class ResponsiveImage extends React.Component {
 				loaded: true,
 				classNames: [...this.state.classNames, 'loaded'],
 			})
-		}, (Math.random() * 200) + 100)
+		}, Math.random() * 200 + 100)
 	}
 
 	renderPlaceholder() {
@@ -102,14 +109,12 @@ class ResponsiveImage extends React.Component {
 				<img src={this.state.dataURI} alt="" className="loading-placeholder" />
 			)
 		}
-		return (<div className="loading-placeholder loading-placeholder--bare" />)
+		return <div className="loading-placeholder loading-placeholder--bare" />
 	}
 
 	render() {
-		const figCaption = (this.props.meta.caption) ? (
-			<figcaption>
-				{markdownToJSX(this.props.meta.caption)}
-			</figcaption>
+		const figCaption = this.props.meta.caption ? (
+			<figcaption>{markdownToJSX(this.props.meta.caption)}</figcaption>
 		) : null
 		return (
 			<figure
@@ -125,7 +130,7 @@ class ResponsiveImage extends React.Component {
 					alt={this.state.alt}
 				/>
 				{this.renderPlaceholder()}
-				{ figCaption }
+				{figCaption}
 			</figure>
 		)
 	}
