@@ -25,6 +25,7 @@ fields:
     texts:
       - Thumbnails will be used
       - Thumbnails will not be used
+    width: 1/2
   displayindex:
     type: switch
     label: Enable Index Page
