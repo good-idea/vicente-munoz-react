@@ -35,7 +35,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 c::set('panel.install', true);
 
 c::set('cache', true);
-c::set('cache.driver', 'memcached');
+c::set('cache.driver', 'file');
 
 c::set('thumbs.driver', 'im');
 
