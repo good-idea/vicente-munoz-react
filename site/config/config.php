@@ -49,7 +49,7 @@ require_once(dirname(__FILE__) . DS . '..' . DS . 'routes.php');
 kirby()->hook(['panel.page.update'], function ($page) {
 	$page->flushCache();
 	$page->getInitialContent();
-	kirby()->cache()->remove('indices');
+	kirby()->cache()->remove('initial');
 });
 
 /**
@@ -62,10 +62,4 @@ kirby()->hook(['panel.page.update'], function ($page) {
  */
 
 
-function consoleLog($input) {
-	try {
-		file_put_contents("php://stdout", var_export($input, true) . "\n");
-	} catch (Exception $e) {
 
-	}
-}

@@ -110,16 +110,12 @@ NavSection.propTypes = {
 	children: PropTypes.arrayOf(PropTypes.shape),
 	active: PropTypes.bool,
 	displayindex: PropTypes.bool,
-	authorized: PropTypes.bool,
-	protected: PropTypes.bool,
 }
 
 NavSection.defaultProps = {
 	children: [],
 	active: false,
 	displayindex: false,
-	protected: false,
-	authorized: false,
 }
 
 /**
@@ -135,16 +131,11 @@ class Navigation extends React.Component {
 		this.state = {
 			visible: true,
 			activeSection: slugOne,
-			authorized: [],
 		}
 	}
 
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll)
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('scroll', this.handleScroll)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -159,6 +150,10 @@ class Navigation extends React.Component {
 				activeSection: nextProps.location.pathname.split('/')[1],
 			})
 		}
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll)
 	}
 
 	setActiveSection(slug) {
@@ -178,10 +173,11 @@ class Navigation extends React.Component {
 		const classNames = []
 		if (this.state.visible) classNames.push('visible')
 		if (this.state.isInSplash) classNames.push('inSplash')
+
 		return (
 			<nav className={cn(classNames)}>
 				<div className="nav__title">
-					<Link to="/">
+					<Link href="/" to="/">
 						<img src={this.props.signature} alt={this.props.title} />
 					</Link>
 				</div>
@@ -212,12 +208,16 @@ Navigation.propTypes = {
 	authorized: PropTypes.arrayOf(PropTypes.string),
 	infoPages: PropTypes.arrayOf(PropTypes.shape),
 	location: PropTypes.shape().isRequired,
+	ready: PropTypes.bool.isRequired,
+	signature: PropTypes.string.isRequired,
+	title: PropTypes.string,
 }
 
 Navigation.defaultProps = {
 	sections: [],
 	authorized: [],
 	infoPages: [],
+	title: 'Vicente Muñoz',
 }
 
 export default Navigation

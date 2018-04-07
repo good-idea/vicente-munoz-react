@@ -63,7 +63,7 @@ const GridImage = props => {
 	return (
 		<div className={cn(classNames)}>
 			<div style={style} className="gridImage__inner">
-				<Link to={`/${props.parentId}`}>
+				<Link to={`/${props.parentId}`} href={`/${props.parentId}`}>
 					<ResponsiveImage sizes={sizes} {...props} />
 					<h4 className="gridImage__title">{props.parentTitle}</h4>
 				</Link>
@@ -89,8 +89,11 @@ class Home extends React.Component {
 
 	render() {
 		const imageCount = 3
+
 		const randomImages = R.pipe(
-			R.filter(section => !section.protected),
+			R.filter(
+				section => !section.protected && section.usethumbnails !== false,
+			),
 			R.pluck('children'),
 			R.flatten,
 			R.map(project => ({

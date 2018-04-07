@@ -18,6 +18,13 @@ fields:
     type: text
     label: Password
     width: 1/2
+  usethumbnails:
+    type: switch
+    label: Use thumbnails on homepage
+    default: true
+    texts:
+      - Thumbnails will be used
+      - Thumbnails will not be used
   displayindex:
     type: switch
     label: Enable Index Page
@@ -25,3 +32,4 @@ fields:
     texts:
       - Projects are displayed on index page
       - Projects are displayed in navigation
+    width: 1/2

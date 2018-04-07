@@ -1,11 +1,40 @@
 <?php
 
-$routes = array(
+function consoleLog($input) {
+	file_put_contents("php://stdout", var_export($input, true) . "\n");
+}
 
+$routes = array(
+  // array(
+  //   'method' => 'GET',
+  //   'pattern' => 'proxy/signature',
+  //   'action' => function() {
+  //     $site = kirby()->site();
+  //     $home = $site->pages()->find('home');
+  //     $signatureString = $home->signature();
+  //     $signatureImage = $home->files()->find($signatureString);
+  //     if ($signatureImage) {
+        
+  //       return response::image($signatureImage);
+  //     } else {
+  //       return response::image($fallbackImage);
+  //     };
+  //   }
+  // ),
+  
   array(
     'method' => 'GET',
     'pattern' => 'api/initial',
     'action' => function() {
+      $cacheID = 'initial';
+      $cacheContent = kirby()->cache()->get($cacheID);
+      
+      if ($cacheContent !== NULL) {
+        $content = $cacheContent;
+        $content->cached = true;
+        return response::json(json_encode($content));
+      }
+
       $content = new StdClass();
       try {
         $site = kirby()->site();
@@ -17,7 +46,9 @@ $routes = array(
 				$content->infoPages = [];
 				foreach($site->pages()->filterBy('intendedtemplate', 'info') as $page) {
 					$content->infoPages[] = $page->getContent();
-				}
+        }
+  
+        kirby()->cache()->set($cacheID, $content);
         return response::json(json_encode($content));
       } catch (Exception $e) {
         consoleLog($e->getMessage());

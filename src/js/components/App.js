@@ -57,7 +57,6 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.ready) return null
-		console.log(this.state)
 		return (
 			<div className="app">
 				<Navigation
@@ -78,13 +77,10 @@ class App extends React.Component {
 						exact
 						path="/:slug"
 						render={({ match, history }) => {
-							console.log('SECTION:')
 							const section = this.state.sections.find(
 								s => s.slug === match.params.slug,
 							)
-							console.log(section)
 							if (section) {
-								console.log(this.state.authorized)
 								if (
 									section.protected &&
 									!this.state.authorized.includes(section.slug)
