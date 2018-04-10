@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import R from 'ramda'
 import Cookies from 'js-cookie'
@@ -28,13 +27,16 @@ class App extends React.Component {
 	componentDidMount() {
 		// const timer = Date.now()
 		const authorized = R.split(',', Cookies.get('authorized') || '')
-		axios.get('/api/initial').then(response => {
-			this.setState({
-				ready: true,
-				...response.data,
-				authorized,
+		fetch('/api/initial')
+			.then(response => response.json())
+			.then(data => {
+				console.log(data)
+				this.setState({
+					ready: true,
+					...data,
+					authorized,
+				})
 			})
-		})
 	}
 
 	componentDidCatch(error, info) {

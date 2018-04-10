@@ -1,8 +1,4 @@
 {
 	"presets": ["babel-preset-env", "es2015", "react", "stage-2"],
-	"plugins": [
-		"transform-object-rest-spread",
-		"react-hot-loader/babel",
-		"ramda",
-	]
+	"plugins": ["transform-object-rest-spread", "react-hot-loader/babel", "ramda"]
 }
